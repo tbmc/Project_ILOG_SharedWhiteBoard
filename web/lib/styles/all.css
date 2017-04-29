@@ -4,3 +4,16 @@
 }
 
 
+
+
+/* Connection page */
+#selectionGroup .panel-body {
+    height: 250px;
+}
+#selectionGroup .panel-body .submitDiv {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    left: 0px;
+}
+

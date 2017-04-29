@@ -13,55 +13,60 @@
                     <label for="pseudo">Entrer votre pseudo</label>
                     <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="pseudo">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="selectionGroup">
                     <div class="col-md-6 col-xs-12">
                         <div class="panel panel-default">
+                            <div class="panel-body">
 
-                            <div class="center-block p-s">
-                                <label id="radioSelectNew">
-                                    <input type="radio" name="selectAction" value="new" checked>
-                                    Créer un nouveau tableau
-                                </label>
-                            </div>
-
-                            <div class="p-s" id="createNewBoard">
-                                <div class="form-group">
-                                    <label for="boardName">
-                                        Entrer le nom que vous désirez pour ce tableau
+                                <div class="center-block p-s">
+                                    <label>
+                                        <input type="radio" name="selectAction" value="new" id="radioSelectNew" checked>
+                                        Créer un nouveau tableau
                                     </label>
-                                    <input type="text" class="form-control" id="boardName" placeholder="Nom du tableau" name="boardName">
                                 </div>
 
-                                <div class="text-center p-s">
-                                    <input type="submit" value="Créer" class="btn btn-default">
+                                <div class="p-s" id="createNewBoard">
+
+                                    <div class="form-group">
+                                        <label for="boardName">
+                                            Entrer le nom que vous désirez pour ce tableau
+                                        </label>
+                                        <input type="text" class="form-control" id="boardName" placeholder="Nom du tableau" name="boardName">
+                                    </div>
+
+                                    <div class="text-center submitDiv">
+                                        <input type="submit" value="Créer" class="btn btn-default">
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <div class="panel panel-default">
-                            <div class="center-block p-s">
-                                <label id="radioSelectSession">
-                                    <input type="radio" name="selectAction" value="session">
-                                    Rejoindre un tableau
-                                </label>
-                            </div>
+                            <div class="panel-body">
+                                <div class="center-block p-s">
+                                    <label>
+                                        <input type="radio" name="selectAction" id="radioSelectSession" value="session">
+                                        Rejoindre un tableau
+                                    </label>
+                                </div>
 
-                            <div class="p-s" id="joinSession">
+                                <div class="p-s" id="joinSession">
 
-                                <select class="selectpicker" data-live-search="true" name="sessionName">
-                                    <option>Test</option>
-                                    <option>Truc</option>
-                                </select>
+                                    <select class="selectpicker" data-live-search="true" name="sessionName">
+                                        <option>Test</option>
+                                        <option>Truc</option>
+                                    </select>
 
-                                <div class="text-center p-s">
-                                    <input type="submit" value="Rejoindre" class="btn btn-default">
+                                    <div class="text-center submitDiv">
+                                        <input type="submit" value="Rejoindre" class="btn btn-default">
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
