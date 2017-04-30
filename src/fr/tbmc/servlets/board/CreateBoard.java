@@ -1,6 +1,6 @@
 package fr.tbmc.servlets.board;
 
-import fr.tbmc.CreatedBoards;
+import fr.tbmc.servlets.singleton.CreatedBoards;
 import fr.tbmc.servlets.JsonResponse;
 
 import javax.servlet.ServletException;
