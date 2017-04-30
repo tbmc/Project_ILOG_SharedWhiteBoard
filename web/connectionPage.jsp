@@ -9,10 +9,15 @@
         <div class="panel-heading">Options de connexion</div>
         <div class="panel-body">
             <form>
-                <div class="form-group">
+                <div class="form-group has-feedback" id="pseudoFeedback">
                     <label for="pseudo">Entrer votre pseudo</label>
-                    <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="pseudo">
+                    <div class="input-group" style="width: 100%;">
+                        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="pseudo">
+                    </div>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" id="pseudoFeedbackGlyphicon" style="visibility: hidden;"></span>
                 </div>
+
+
                 <div class="form-group" id="selectionGroup">
                     <div class="col-md-6 col-xs-12">
                         <div class="panel panel-default">
@@ -27,15 +32,22 @@
 
                                 <div class="p-s" id="createNewBoard">
 
-                                    <div class="form-group">
-                                        <label for="boardName">
+                                    <div class="alert alert-danger" style="display: none;" id="alertErrorCreateBoard">
+                                        <strong>Erreur : </strong> Impossible de créer le salon
+                                    </div>
+
+                                    <div class="form-group has-feedback" id="nameFeedback">
+                                        <label for="boardName" class="control-label">
                                             Entrer le nom que vous désirez pour ce tableau
                                         </label>
-                                        <input type="text" class="form-control" id="boardName" placeholder="Nom du tableau" name="boardName">
+                                        <div class="input-group" style="width: 100%;">
+                                            <input type="text" class="form-control" id="boardName" placeholder="Nom du tableau" name="boardName">
+                                        </div>
+                                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" id="nameFeedbackGlyphicon" style="visibility: hidden;"></span>
                                     </div>
 
                                     <div class="text-center submitDiv">
-                                        <input type="submit" value="Créer" class="btn btn-default">
+                                        <input type="button" value="Créer" class="btn btn-default" id="createBoardButton">
                                     </div>
 
                                 </div>
@@ -54,14 +66,17 @@
                                 </div>
 
                                 <div class="p-s" id="joinSession">
+                                    <div>
+                                        <select
+                                            class="selectpicker" data-live-search="true"
+                                            name="sessionName" id="sessionName" style="width: 100%;"
+                                        >
+                                        </select>
+                                    </div>
 
-                                    <select class="selectpicker" data-live-search="true" name="sessionName">
-                                        <option>Test</option>
-                                        <option>Truc</option>
-                                    </select>
 
                                     <div class="text-center submitDiv">
-                                        <input type="submit" value="Rejoindre" class="btn btn-default">
+                                        <input type="button" value="Rejoindre" class="btn btn-default" id="joinSessionButton">
                                     </div>
 
                                 </div>
