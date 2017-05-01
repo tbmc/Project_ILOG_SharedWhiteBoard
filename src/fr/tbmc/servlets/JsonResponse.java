@@ -12,18 +12,22 @@ import java.io.PrintWriter;
  */
 public class JsonResponse
 {
+    protected Gson gson;
+
+    public JsonResponse() {
+        // Create a Gson object
+        GsonBuilder builder = new GsonBuilder();
+        gson = builder.create();
+    }
+
     /**
      * Encode object in JSON and write it in the output stream
      * @param resp Response object pass in parameter at the method doGet or doPost or any other method doXxx
      * @param object Object to convert in JSON
      * @throws IOException
      */
-    public static void r(HttpServletResponse resp, Object object) throws IOException
+    public void respond(HttpServletResponse resp, Object object) throws IOException
     {
-        // Create a Gson object
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
         // Define the content type of the response
         // We return json so we tell the client that the response is JSON
         resp.setContentType("application/json");
@@ -40,4 +44,20 @@ public class JsonResponse
         // Force the writer to write in the output stream
         out.flush();
     }
+
+    /**
+     * Same as method
+     * @see JsonResponse#respond(HttpServletResponse, Object)
+     * except that it instantiate the class necessary to encore to JSON
+     *
+     * @param resp
+     * @param object
+     * @throws IOException
+     */
+    public static void r(HttpServletResponse resp, Object object) throws IOException
+    {
+        JsonResponse jr = new JsonResponse();
+        jr.respond(resp, object);
+    }
+
 }

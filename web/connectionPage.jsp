@@ -1,7 +1,6 @@
 ﻿
 <%-- Include header --%>
 <jsp:include page="/WEB-INF/header.jsp">
-    <%-- Pass the title parameter --%>
     <jsp:param name="title" value="Page de connexion" />
 </jsp:include>
 
