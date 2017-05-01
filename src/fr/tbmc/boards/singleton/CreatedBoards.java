@@ -1,6 +1,6 @@
-package fr.tbmc.servlets.singleton;
+package fr.tbmc.boards.singleton;
 
-import fr.tbmc.Board;
+import fr.tbmc.boards.Board;
 
 import java.util.*;
 

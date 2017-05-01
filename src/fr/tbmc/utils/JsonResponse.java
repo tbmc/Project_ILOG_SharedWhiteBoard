@@ -1,4 +1,4 @@
-package fr.tbmc.servlets;
+package fr.tbmc.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,12 +12,19 @@ import java.io.PrintWriter;
  */
 public class JsonResponse
 {
+
+    /**
+     * Gson object to convert Object to JSON string
+     */
     protected Gson gson;
 
-    public JsonResponse() {
-        // Create a Gson object
-        GsonBuilder builder = new GsonBuilder();
+
+    public JsonResponse(GsonBuilder builder) {
         gson = builder.create();
+    }
+
+    public JsonResponse() {
+        this(new GsonBuilder());
     }
 
     /**

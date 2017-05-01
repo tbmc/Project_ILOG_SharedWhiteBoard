@@ -1,4 +1,4 @@
-package fr.tbmc;
+package fr.tbmc.boards;
 
 /**
  * Created by tbmc on 29/04/2017.
@@ -6,6 +6,7 @@ package fr.tbmc;
 public class User
 {
     protected String pseudo;
+    protected String identifiant;
 
     public User(String pseudo) {
         this.pseudo = pseudo;

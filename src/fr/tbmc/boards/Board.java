@@ -1,4 +1,4 @@
-package fr.tbmc;
+package fr.tbmc.boards;
 
 import java.util.HashMap;
 import java.util.Map;
