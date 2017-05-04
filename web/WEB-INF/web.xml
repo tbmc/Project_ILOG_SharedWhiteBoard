@@ -3,17 +3,40 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    
+
+    <!-- Déclaration des servlets -->
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>fr.tbmc.servlets.MainServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-
     </servlet>
 
+    <servlet>
+        <servlet-name>BoardList</servlet-name>
+        <servlet-class>fr.tbmc.servlets.board.BoardList</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CreateBoard</servlet-name>
+        <servlet-class>fr.tbmc.servlets.board.CreateBoard</servlet-class>
+    </servlet>
+
+
+    <!-- Mapping -->
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet-mapping>
+        <servlet-name>BoardList</servlet-name>
+        <url-pattern>/api/board-list</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CreateBoard</servlet-name>
+        <url-pattern>/api/board-create</url-pattern>
+        <url-pattern>/api/board-exists</url-pattern>
+    </servlet-mapping>
+
 </web-app>

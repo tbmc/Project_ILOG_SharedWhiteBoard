@@ -1,0 +1,29 @@
+
+/*
+Class with a small padding
+p-s <=> padding-small
+ */
+.p-s {
+    padding: 10px;
+}
+
+
+
+
+/***********************
+**** Connection page ***
+***********************/
+
+/* Define the height of the panel */
+#selectionGroup .panel-body {
+    height: 300px;
+}
+
+/* Set the div containing the submit button to the bottom of the parent */
+#selectionGroup .panel-body .submitDiv {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    left: 0px;
+}
+
