@@ -1,7 +1,7 @@
-package fr.tbmc.servlets.board;
+package fr.tbmc.servlets.boards;
 
 import fr.tbmc.boards.singleton.CreatedBoards;
-import fr.tbmc.utils.JsonResponse;
+import fr.tbmc.response.Response;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class BoardList extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         CreatedBoards board = CreatedBoards.getInstance();
-        JsonResponse.r(resp, board.getBoardList());
+        Response.json(resp, board.getBoardList());
     }
 
 }

@@ -11,4 +11,8 @@ public class User
     public User(String pseudo) {
         this.pseudo = pseudo;
     }
+
+    public String getPseudo() {
+        return pseudo;
+    }
 }

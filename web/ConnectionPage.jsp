@@ -75,7 +75,7 @@
                                         <input type="button" value="Créer" class="btn btn-default" id="createBoardButton">
                                     </div>
 
-                                </div> <%-- Panel create new board --%>
+                                </div> <%-- Panel create new boards --%>
 
                             </div> <%-- Panel body --%>
                         </div> <%-- Panel --%>
@@ -126,7 +126,7 @@
 
 
 <%-- Include the script of the page --%>
-<script src="/lib/scripts/connectionPage.js"></script>
+<script src="/lib/scripts/ConnectionPage.js"></script>
 
 <%-- Include the footer --%>
 <%@ include file="WEB-INF/footer.jsp" %>
