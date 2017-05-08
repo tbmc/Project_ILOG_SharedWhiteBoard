@@ -6,7 +6,8 @@
 
 
 
-
+<canvas id="canvas" style="border: 1px solid gray;">
+</canvas>
 
 
 
