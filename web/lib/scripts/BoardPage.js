@@ -24,11 +24,7 @@ class Canvas {
     this.canvasElement = canvasElement;
     this.canvasCtx = canvasElement.getContext("2d");
     
-    console.log(canvasElement.width, canvasElement.height);
-    let t = { x: 75, y: 0 };
-    let s = this.getRealFromVirtual(t);
-    let r = this.getVirtualFromReal(s);
-    console.log(t, s, r);
+    this.initCanvasEvents();
   }
   
   crossProduct(coordinate, virtualSize, size) {
@@ -49,5 +45,125 @@ class Canvas {
     return out;
   }
   
+  initCanvasEvents() {
+    this.type = "line";
+    this.color = "#000000";
+    this.fill = false;
+    this.clickPosition = null;
+    this.mouseIsDown = false;
+    let canvas = this.canvasElement;
+    canvas.addEventListener("mousedown", e => this.mouseDown(e));
+    window.addEventListener("mousemove", e => this.mouseMove(e));
+    window.addEventListener("mouseup",   e => this.mouseUp(e));
+  }
+  
+  mouseDown(e) {
+    this.mouseIsDown = true;
+    let image = new Image();
+    image.src = this.canvasElement.toDataURL();
+    let o = this.getXYFromEvent(event);
+    this.clickPosition = {
+      x: o.x,
+      y: o.y,
+      image,
+    };
+  }
+  
+  mouseMove(e) {
+    if(!this.mouseIsDown)
+      return;
+    let canvas = this.canvasElement;
+    this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
+    this.draw(e);
+  }
+  
+  mouseUp(e) {
+    if(!this.mouseIsDown)
+      return;
+    this.mouseIsDown = false;
+    let p = {
+      x: this.clickPosition.x,
+      y: this.clickPosition.y,
+    };
+    newFigureDrew(this.type, p, this.getXYFromEvent(event));
+  }
+  
+  draw(event) {
+    let o = this.getXYFromEvent(event);
+    let px = this.clickPosition.x;
+    let py = this.clickPosition.y;
+    this.selectDraw(px, py, o.x, o.y);
+  }
+  
+  getXYFromEvent(event) {
+    let rect = this.canvasElement.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+  }
+  
+  selectDraw(px, py, x, y) {
+    let canvas = this.canvasElement;
+    let ctx = this.canvasCtx;
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.strokeStyle = this.color;
+    switch(this.type) {
+      case "line":
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        break;
+      case "circle":
+        this.drawCircle(px, py, x, y);
+        break;
+        
+    }
+    if(this.fill) {
+      ctx.fill();
+    }else {
+      ctx.stroke();
+    }
+  }
+  
+  drawCircle(px, py, x, y) {
+    let cx = (px + x) / 2;
+    let cy = (py + y) / 2;
+    let xx = Math.pow(x - px, 2);
+    let yy = Math.pow(y - py, 2);
+    let r = Math.sqrt(xx + yy) / 2;
+    this.canvasCtx.arc(cx, cy, r, 0, 2 * Math.PI);
+  }
+  
+  
+  clear() {
+    let canvas = this.canvasElement;
+    this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  
+}
+
+document.getElementById("buttonLine").onclick = () => {
+  canvasInstance.type = "line";
+};
+document.getElementById("buttonCircle").onclick = () => {
+  canvasInstance.type = "circle";
+};
+document.getElementById("buttonBlack").onclick = () => {
+  canvasInstance.color = "#000000";
+};
+document.getElementById("buttonRed").onclick = () => {
+  canvasInstance.color = "#ff0000";
+};
+document.getElementById("buttonClear").onclick = () => {
+  canvasInstance.clear();
+};
+
+
+function newFigureDrew(type, beginPoint, endPoint) {
+
 }
 
