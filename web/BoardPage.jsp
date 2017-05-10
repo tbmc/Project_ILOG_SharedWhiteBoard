@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%-- Include header --%>
 <jsp:include page="/WEB-INF/header.jsp">
     <jsp:param name="title" value="Tableau partagé" />
