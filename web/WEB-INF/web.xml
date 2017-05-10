@@ -83,4 +83,9 @@
     </servlet-mapping>
 
 
+    <listener>
+        <description>Session listener for timeout</description>
+        <listener-class>fr.tbmc.session.SessionListener</listener-class>
+    </listener>
+
 </web-app>

@@ -2,21 +2,29 @@ package fr.tbmc.boards.changes;
 
 import fr.tbmc.boards.User;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.awt.*;
+import java.util.*;
 
 /**
  * Created by tbmc on 04/05/2017.
  */
-public class DefaultChange implements Change
+public class DefaultChange extends AbstractChange
 {
 
-    protected User user;
-    protected Date date;
-    protected Type type;
+    private Point begin, end;
+
+    public DefaultChange(
+            Type type, User user, Date date,
+            String id, Color color, int thickness,
+            boolean isFilled,
+            Point begin, Point end
+    ) {
+        super(type, user, date, id, color, thickness, isFilled);
+
+        this.begin = begin;
+        this.end = end;
+
+    }
 
     public Point getBegin()
     {
@@ -28,57 +36,23 @@ public class DefaultChange implements Change
         return end;
     }
 
-    protected Point begin, end;
 
     @Override
-    public String getIdentifier()
+    public Map<String, Object> toMap()
     {
-        return identifier;
+        Map<String, Object> map = getJsonStructure();
+        map.put("points", getPoints());
+        return map;
     }
 
     @Override
     public Collection<Point> getPoints()
     {
-        List<Point> list = new ArrayList<>();
+        java.util.List<Point> list = new ArrayList<>();
         list.add(getBegin());
         list.add(getEnd());
         return list;
     }
 
-    protected String identifier;
 
-    public DefaultChange(Type type, User user, Date date, Point begin, Point end, String id) {
-        this.user = user;
-        this.type = type;
-        this.date = date;
-
-        this.begin = begin;
-        this.end = end;
-
-        this.identifier = id;
-    }
-
-    @Override
-    public Type getType()
-    {
-        return type;
-    }
-
-    @Override
-    public User getUser()
-    {
-        return user;
-    }
-
-    @Override
-    public Date getDate()
-    {
-        return date;
-    }
-
-    @Override
-    public String toJson()
-    {
-        return null;
-    }
 }

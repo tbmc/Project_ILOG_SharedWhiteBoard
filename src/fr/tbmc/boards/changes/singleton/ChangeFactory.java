@@ -2,12 +2,13 @@ package fr.tbmc.boards.changes.singleton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import fr.tbmc.boards.User;
 import fr.tbmc.boards.changes.Change;
 import fr.tbmc.boards.changes.DefaultChange;
 import fr.tbmc.boards.changes.Type;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -30,12 +31,12 @@ public class ChangeFactory
         return INSTANCE;
     }
 
-    public Change createDefaultChange(Type type, User user, Point begin, Point end)
+    public Change createDefaultChange(Type type, User user, Color color, int thickness, boolean isFilled, Point begin, Point end)
     {
         Date d = new Date();
         String id = UUID.randomUUID().toString();
 
-        DefaultChange dc = new DefaultChange(type, user, d, begin, end, id);
+        DefaultChange dc = new DefaultChange(type, user, d, id, color, thickness, isFilled, begin, end);
         return dc;
     }
 
@@ -49,7 +50,10 @@ public class ChangeFactory
      *          points: [
      *              { x: 0, y: 0 }, // Point begin
      *              { x: 1, y: 1 }  // Point end
-     *          ]
+     *          ],
+     *          color: "#00ff00",
+     *          thickness: 2,
+     *          fill: false,
      *      }
      *
      * @param user
@@ -60,12 +64,15 @@ public class ChangeFactory
         HashMap map = gson.fromJson(json, HashMap.class);
         String strType = (String) map.get("type");
         Type type = Type.valueOf(strType);
+        Color color = hexStringToColor((String) map.get("color"));
+        int thickness = Integer.valueOf((String) map.get("thickness"));
+        boolean isFilled = Boolean.valueOf((String) map.get("fill"));
 
         if(RECTANGLE == type || CIRCLE == type || LINE == type) {
             List points = (List) map.get("points");
             HashMap p1 = (HashMap) points.get(0);
             HashMap p2 = (HashMap) points.get(1);
-            return createDefaultChange(type, user, pointFromMap(p1), pointFromMap(p2));
+            return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
         }
 
         return null;
@@ -76,6 +83,18 @@ public class ChangeFactory
         x = (int) m.get("x");
         y = (int) m.get("y");
         return new Point(x, y);
+    }
+
+    /**
+     *
+     * @param colorStr e.g. "#FFFFFF"
+     * @return
+     */
+    public static Color hexStringToColor(String colorStr) {
+        return new Color(
+                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+                Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
     }
 
 }

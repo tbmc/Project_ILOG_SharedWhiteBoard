@@ -34,7 +34,7 @@ public class GetChange extends HttpServlet
         try
         {
             Collection<Change> list = createdBoards.getChangesSinceLastIdentifierFromBoard(boardName, lastIdentifier);
-            Response.json(resp, list);
+            Response.json(resp, Change.toMapList(list));
         }
         catch (ClassNotFoundException e)
         {
