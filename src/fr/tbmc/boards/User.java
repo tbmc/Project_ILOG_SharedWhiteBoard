@@ -9,7 +9,9 @@ public class User
 {
     protected String pseudo, identifier;
 
-    public User(String pseudo) {
+    public User(String pseudo) throws IllegalArgumentException {
+        if(pseudo.contains("#"))
+            throw new IllegalArgumentException("Illegal character");
         this.pseudo = pseudo;
         identifier = UUID.randomUUID().toString();
     }

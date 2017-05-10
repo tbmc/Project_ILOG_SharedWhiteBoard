@@ -70,7 +70,8 @@ public abstract class AbstractChange implements Change
         return isFilled;
     }
 
-    public Map<String, Object> getJsonStructure() {
+    @Override
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
 
         map.put("type", getType());
@@ -79,7 +80,11 @@ public abstract class AbstractChange implements Change
         map.put("thickness", getThickness());
         map.put("fill", isFilled());
         map.put("date", getDate());
-        map.put("user", getUser());
+        map.put("user", getUser().toString());
+        map.put("id", getIdentifier());
+
+        // Method which needs to be overrode
+        map.put("points", getPoints());
 
         return map;
     }

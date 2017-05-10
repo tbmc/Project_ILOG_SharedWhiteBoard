@@ -111,6 +111,11 @@ public class CreatedBoards
         return board.getChangesSinceLastIdentifier(id);
     }
 
+    public String getLastChangeIdentifierFromBoard(String boardName) throws ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        return board.getLastChangeIdentifier();
+    }
 
 
     /* Singleton */

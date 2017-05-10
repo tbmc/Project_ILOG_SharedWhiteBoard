@@ -36,15 +36,6 @@ public class DefaultChange extends AbstractChange
         return end;
     }
 
-
-    @Override
-    public Map<String, Object> toMap()
-    {
-        Map<String, Object> map = getJsonStructure();
-        map.put("points", getPoints());
-        return map;
-    }
-
     @Override
     public Collection<Point> getPoints()
     {

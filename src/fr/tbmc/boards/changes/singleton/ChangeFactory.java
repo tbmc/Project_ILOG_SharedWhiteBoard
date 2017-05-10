@@ -65,13 +65,14 @@ public class ChangeFactory
         String strType = (String) map.get("type");
         Type type = Type.valueOf(strType);
         Color color = hexStringToColor((String) map.get("color"));
-        int thickness = Integer.valueOf((String) map.get("thickness"));
-        boolean isFilled = Boolean.valueOf((String) map.get("fill"));
+
+        int thickness = (int) Math.round((double) map.get("thickness"));
+        boolean isFilled = (boolean) map.get("fill");
 
         if(RECTANGLE == type || CIRCLE == type || LINE == type) {
             List points = (List) map.get("points");
-            HashMap p1 = (HashMap) points.get(0);
-            HashMap p2 = (HashMap) points.get(1);
+            Map p1 = (Map) points.get(0);
+            Map p2 = (Map) points.get(1);
             return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
         }
 
@@ -80,8 +81,8 @@ public class ChangeFactory
 
     protected Point pointFromMap(Map m) {
         int x, y;
-        x = (int) m.get("x");
-        y = (int) m.get("y");
+        x = (int) Math.round((double) m.get("x"));
+        y = (int) Math.round((double) m.get("y"));
         return new Point(x, y);
     }
 

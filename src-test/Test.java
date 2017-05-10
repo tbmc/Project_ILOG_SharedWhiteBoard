@@ -1,12 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.tbmc.boards.User;
-import fr.tbmc.boards.changes.Change;
-import fr.tbmc.boards.changes.ChangeList;
-import fr.tbmc.boards.changes.Type;
-import fr.tbmc.boards.changes.singleton.ChangeFactory;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -41,13 +35,13 @@ public class Test
         GsonBuilder gson = new GsonBuilder().setPrettyPrinting();
         Gson g = gson.create();
 
-        ChangeFactory cf = ChangeFactory.getInstance();
+        /*ChangeFactory cf = ChangeFactory.getInstance();
         Change c = cf.createDefaultChange(Type.CIRCLE, new User("test"), new Point(1, 2), new Point(3, 4));
-        ChangeList cl = new ChangeList();
+        TestChangeList cl = new TestChangeList();
         cl.add(c);
 
 
-        System.out.println(g.toJson(cl));
+        System.out.println(g.toJson(cl));*/
     }
 
     public static void main(String[] args)
