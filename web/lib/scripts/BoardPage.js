@@ -50,6 +50,7 @@ class Canvas {
     this.type = "line";
     this.color = "#000000";
     this.fill = false;
+    this.thickness = 11
     
     
     this.clickPosition = null;
@@ -85,11 +86,16 @@ class Canvas {
     if(!this.mouseIsDown)
       return;
     this.mouseIsDown = false;
-    let p = {
-      x: this.clickPosition.x,
-      y: this.clickPosition.y,
+
+    let coord = {
+      p : {px: this.clickPosition.x,
+      py: this.clickPosition.y},
+      c: this.getXYFromEvent(event)
     };
-    newFigureDrew(this.type, p, this.getXYFromEvent(event));
+
+    let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
+    canvasList.push(elmtJSON);
+    submit(elmtJSON);
   }
   
   draw(event) {
@@ -113,6 +119,8 @@ class Canvas {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
+    ctx.lineWidth=this.thickness;
+
     switch(this.type) {
       case "line":
         ctx.moveTo(px, py);
@@ -152,7 +160,6 @@ class Canvas {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
   }
-  
 }
 
 document.getElementById("buttonLine").onclick = () => {
@@ -194,11 +201,19 @@ document.getElementById("buttonClear").onclick = () => {
 };
 
 //
-function newFigureDrew(type, beginPoint, endPoint) {
+function newFigureDrew(type, points, thickness, fill, color) {
+    var obj = {
+        type,
+        points,
+        thickness,
+        fill,
+        color
+    }
 
+    return JSON.stringify(obj);
 }
 
-//Submit change on canvas
+//Submit infos needed to redraw the canvas element
 function submit(elmt) {
     $.post(
         "/api/do-change",
@@ -207,29 +222,37 @@ function submit(elmt) {
         },
         submitReturn,
         'json'
-    );
+    ).fail(function(data) {
+        console.log(data);
+    });
 
     function submitReturn(response){
         console.log(response);
     }
 };
 
-//Update canvas list
+//Update canvas elements list
 function update() {
-    $.get("/api/get-changes").done(function(data) {
-        // Add data received to the canvas list
+    $.get(
+        "/api/get-changes"
+    ).done(function(data) {
+        // Add data received to the list
         _.forEach(data, function(x) {
-            //Check existence in list
+            //Check existence in the list
             var exist = false;
             canvasList.forEach(function(y){
               if(x == y){
                 exist = true;
               }
-            }
+            });
             if(exist){
-              //Add an elmt to the canvas list
+              //Add an elmt to the list
               canvasList.push(x);
             }
         });
+    }).fail(function(data) {
+        console.log(data);
     });
+
+    setTimeout(update(),5000);
 };
