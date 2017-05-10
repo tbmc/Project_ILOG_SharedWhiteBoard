@@ -60,7 +60,7 @@ class Canvas {
     window.addEventListener("mouseup",   e => this.mouseUp(e));
   }
   
-  mouseDown(e) {
+  mouseDown(event) {
     this.mouseIsDown = true;
     let image = new Image();
     image.src = this.canvasElement.toDataURL();
