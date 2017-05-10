@@ -46,9 +46,12 @@ class Canvas {
   }
   
   initCanvasEvents() {
+    // Values by default
     this.type = "line";
     this.color = "#000000";
     this.fill = false;
+    
+    
     this.clickPosition = null;
     this.mouseIsDown = false;
     let canvas = this.canvasElement;
@@ -112,10 +115,8 @@ class Canvas {
     ctx.strokeStyle = this.color;
     switch(this.type) {
       case "line":
-        ctx.beginPath();
         ctx.moveTo(px, py);
         ctx.lineTo(x, y);
-        ctx.stroke();
         break;
       case "circle":
         this.drawCircle(px, py, x, y);
