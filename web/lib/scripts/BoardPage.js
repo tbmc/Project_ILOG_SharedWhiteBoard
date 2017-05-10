@@ -8,10 +8,10 @@ const VIRTUAL_SIZE = {
 };
 
 let canvasInstance;
+let canvasList = [];
 
 window.onload = function() {
   initCanvas();
-  
 };
 
 function initCanvas() {
@@ -72,16 +72,16 @@ class Canvas {
     };
   }
   
-  mouseMove(e) {
+  mouseMove(event) {
     if(!this.mouseIsDown)
       return;
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
-    this.draw(e);
+    this.draw(event);
   }
   
-  mouseUp(e) {
+  mouseUp(event) {
     if(!this.mouseIsDown)
       return;
     this.mouseIsDown = false;
@@ -121,9 +121,12 @@ class Canvas {
       case "circle":
         this.drawCircle(px, py, x, y);
         break;
-        
+      case "rectangle":
+        this.drawRectangle(px, py, x, y);
+        break;
     }
-    if(this.fill) {
+    //Fill doesn't work with line type
+    if(this.fill && this.type != "line") {
       ctx.fill();
     }else {
       ctx.stroke();
@@ -138,8 +141,13 @@ class Canvas {
     let r = Math.sqrt(xx + yy) / 2;
     this.canvasCtx.arc(cx, cy, r, 0, 2 * Math.PI);
   }
-  
-  
+
+  drawRectangle(px, py, x, y) {
+    let rw = px - x
+    let rh = py - y
+    this.canvasCtx.rect(x, y, rw, rh);
+  }
+
   clear() {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -153,18 +161,75 @@ document.getElementById("buttonLine").onclick = () => {
 document.getElementById("buttonCircle").onclick = () => {
   canvasInstance.type = "circle";
 };
+document.getElementById("buttonRect").onclick = () => {
+    canvasInstance.type = "rectangle";
+};
 document.getElementById("buttonBlack").onclick = () => {
   canvasInstance.color = "#000000";
 };
+document.getElementById("buttonWhite").onclick = () => {
+    canvasInstance.color = "#ffffff";
+};
 document.getElementById("buttonRed").onclick = () => {
-  canvasInstance.color = "#ff0000";
+  canvasInstance.color = "#ce423e";
+};
+document.getElementById("buttonGreen").onclick = () => {
+    canvasInstance.color = "#5cb85c";
+};
+document.getElementById("buttonBlue").onclick = () => {
+    canvasInstance.color = "#337ab7";
+};
+document.getElementById("buttonOrange").onclick = () => {
+    canvasInstance.color = "#f0ad4e";
+};
+document.getElementById("buttonFill").onchange = () => {
+  if(canvasInstance.fill){
+      canvasInstance.fill = false;
+  } else {
+      canvasInstance.fill = true;
+  }
 };
 document.getElementById("buttonClear").onclick = () => {
   canvasInstance.clear();
 };
 
-
+//
 function newFigureDrew(type, beginPoint, endPoint) {
 
 }
 
+//Submit change on canvas
+function submit(elmt) {
+    $.post(
+        "/api/do-change",
+        {
+          data: elmt
+        },
+        submitReturn,
+        'json'
+    );
+
+    function submitReturn(response){
+        console.log(response);
+    }
+};
+
+//Update canvas list
+function update() {
+    $.get("/api/get-changes").done(function(data) {
+        // Add data received to the canvas list
+        _.forEach(data, function(x) {
+            //Check existence in list
+            var exist = false;
+            canvasList.forEach(function(y){
+              if(x == y){
+                exist = true;
+              }
+            }
+            if(exist){
+              //Add an elmt to the canvas list
+              canvasList.push(x);
+            }
+        });
+    });
+};
