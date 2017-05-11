@@ -65,12 +65,12 @@
 
     <servlet-mapping>
         <servlet-name>JoinBoard</servlet-name>
-        <url-pattern>/api/join-board</url-pattern>
+        <url-pattern>/api/board-join</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>ListUsers</servlet-name>
-        <url-pattern>/api/list-users</url-pattern>
+        <url-pattern>/api/user-list</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

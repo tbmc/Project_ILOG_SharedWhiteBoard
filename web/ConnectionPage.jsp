@@ -85,6 +85,11 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
 
+                                <%-- Alert to show when there is an error --%>
+                                <div class="alert alert-danger" style="display: none;" id="alertErrorJoinBoard">
+                                    <strong>Erreur : </strong> Impossible de rejoindre le salon
+                                </div>
+
                                 <%-- Selector of the joining session --%>
                                 <div class="center-block p-s">
                                     <label>
