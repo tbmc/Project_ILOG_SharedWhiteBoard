@@ -21,14 +21,6 @@
         <input type="button" class="btn btn-primary" id="buttonRect" value="Rectangle">
     </div>
     <div class="row row-margin">
-        <input type="button" class="btn btn-black" id="buttonBlack" value="">
-        <input type="button" class="btn btn-default" id="buttonWhite" value="">
-        <input type="button" class="btn btn-danger" id="buttonRed" value="">
-        <input type="button" class="btn btn-primary" id="buttonBlue" value="">
-        <input type="button" class="btn btn-warning" id="buttonOrange" value="">
-        <input type="button" class="btn btn-success" id="buttonGreen" value="">
-    </div>
-    <div class="row row-margin">
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-primary">
                 <input type="checkbox" id="buttonFill">
@@ -37,8 +29,13 @@
         </div>
         <input type="button" class="btn btn-primary" id="buttonClear" value="Clear">
     </div>
+    <div class="row row-margin">
+        <input type="color" id="colorPicker" value="#000000">
+    </div>
 </div>
 
+<script src="/lib/ColorCanvas/colorcanvas.min.js"></script>
+<script src="/lib/ColorCanvas/colorcanvas.input.min.js"></script>
 <%-- Include the script of the page --%>
 <script src="/lib/scripts/BoardPage.js"></script>
 

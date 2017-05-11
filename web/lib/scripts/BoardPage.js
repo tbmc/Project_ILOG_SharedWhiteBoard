@@ -180,24 +180,6 @@ document.getElementById("buttonCircle").onclick = () => {
 document.getElementById("buttonRect").onclick = () => {
     canvasInstance.type = "rectangle";
 };
-document.getElementById("buttonBlack").onclick = () => {
-  canvasInstance.color = "#000000";
-};
-document.getElementById("buttonWhite").onclick = () => {
-    canvasInstance.color = "#ffffff";
-};
-document.getElementById("buttonRed").onclick = () => {
-  canvasInstance.color = "#ce423e";
-};
-document.getElementById("buttonGreen").onclick = () => {
-    canvasInstance.color = "#5cb85c";
-};
-document.getElementById("buttonBlue").onclick = () => {
-    canvasInstance.color = "#337ab7";
-};
-document.getElementById("buttonOrange").onclick = () => {
-    canvasInstance.color = "#f0ad4e";
-};
 document.getElementById("buttonFill").onchange = () => {
   if(canvasInstance.fill){
       canvasInstance.fill = false;
@@ -208,6 +190,10 @@ document.getElementById("buttonFill").onchange = () => {
 document.getElementById("buttonClear").onclick = () => {
   canvasInstance.clear();
 };
+document.getElementById("colorPicker").onchange = () => {
+    canvasInstance.color = document.getElementById("colorPicker").value;
+};
+
 
 //
 function newFigureDrew(type, points, thickness, fill, color) {
