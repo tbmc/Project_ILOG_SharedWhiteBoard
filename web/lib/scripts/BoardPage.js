@@ -289,7 +289,7 @@ function drawListElmt(JSONelmt){
         canvasInstance.fill = oldFill;
         canvasInstance.type = oldType;
     } else {
-        canvasInstance.changeClear();
+        canvasInstance.clear();
     }
 }
 
