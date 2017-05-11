@@ -1,4 +1,4 @@
-package fr.tbmc.boards.changes;
+package fr.tbmc.boards.changes.types;
 
 import fr.tbmc.boards.User;
 
@@ -70,22 +70,12 @@ public abstract class AbstractChange implements Change
         return isFilled;
     }
 
-    @Override
-    public Map<String, Object> toMap() {
+    public Map<String, Object> getMetaDataMap() {
         Map<String, Object> map = new HashMap<>();
-
         map.put("type", getType());
-        map.put("points", "null");
-        map.put("color", getColorString());
-        map.put("thickness", getThickness());
-        map.put("fill", isFilled());
         map.put("date", getDate());
         map.put("user", getUser().toString());
         map.put("id", getIdentifier());
-
-        // Method which needs to be overrode
-        map.put("points", getPoints());
-
         return map;
     }
 

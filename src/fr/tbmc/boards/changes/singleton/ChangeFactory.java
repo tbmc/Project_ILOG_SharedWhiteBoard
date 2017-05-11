@@ -2,20 +2,16 @@ package fr.tbmc.boards.changes.singleton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import fr.tbmc.boards.User;
-import fr.tbmc.boards.changes.Change;
-import fr.tbmc.boards.changes.ClearChange;
-import fr.tbmc.boards.changes.DefaultChange;
-import fr.tbmc.boards.changes.Type;
+import fr.tbmc.boards.changes.types.*;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static fr.tbmc.boards.changes.Type.*;
-import static fr.tbmc.boards.changes.Type.CIRCLE;
-import static fr.tbmc.boards.changes.Type.RECTANGLE;
+import static fr.tbmc.boards.changes.types.Type.*;
+import static fr.tbmc.boards.changes.types.Type.CIRCLE;
+import static fr.tbmc.boards.changes.types.Type.RECTANGLE;
 
 /**
  * Created by tbmc on 04/05/2017.
@@ -65,24 +61,42 @@ public class ChangeFactory
         HashMap map = gson.fromJson(json, HashMap.class);
         String strType = (String) map.get("type");
         Type type = Type.getTypeFromString(strType);
+        Color color = hexStringToColor((String) map.get("color"));
 
-        if(RECTANGLE == type || CIRCLE == type || LINE == type) {
-            List points = (List) map.get("points");
-            Map p1 = (Map) points.get(0);
-            Map p2 = (Map) points.get(1);
-            Color color = hexStringToColor((String) map.get("color"));
-            int thickness = (int) Math.round((double) map.get("thickness"));
-            boolean isFilled = (boolean) map.get("fill");
+        int thickness = (int) Math.round((double) map.get("thickness"));
+        boolean isFilled = (boolean) map.get("fill");
 
-            return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
-        }else if(CLEAR == type) {
-            return createClearChange(type, user);
+        switch(type) {
+            case RECTANGLE:
+            case CIRCLE:
+            case LINE:
+                List points = (List) map.get("points");
+                Map p1 = (Map) points.get(0);
+                Map p2 = (Map) points.get(1);
+                return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
+
+            case CLEAR:
+                return createClearChange(user);
+
+            case UNDO:
+                String previousId = (String) map.get("previousId");
+                return createUndoChange(user, previousId);
+
+
+
+            default:
+                return null;
         }
-
-        return null;
     }
 
-    public Change createClearChange(Type type, User user) {
+    public Change createUndoChange(User user, String previousId) {
+        Date date = new Date();
+        String id = UUID.randomUUID().toString();
+        UndoChange uc = new UndoChange(user, date, id, previousId);
+        return uc;
+    }
+
+    public Change createClearChange(User user) {
         Date date = new Date();
         String id = UUID.randomUUID().toString();
         ClearChange cc = new ClearChange(user, date, id);

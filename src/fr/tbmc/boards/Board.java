@@ -1,6 +1,6 @@
 package fr.tbmc.boards;
 
-import fr.tbmc.boards.changes.Change;
+import fr.tbmc.boards.changes.types.Change;
 import fr.tbmc.boards.changes.ChangeList;
 
 import java.util.*;

@@ -1,10 +1,11 @@
-package fr.tbmc.boards.changes;
+package fr.tbmc.boards.changes.types;
 
 import fr.tbmc.boards.User;
 
 import java.awt.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by tbmc on 11/05/2017.
@@ -21,4 +22,10 @@ public class ClearChange extends AbstractChange
     {
         return null;
     }
+
+    @Override
+    public Map<String, Object> toMap() {
+        return getMetaDataMap();
+    }
+
 }

@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fr.tbmc.boards.User;
 import fr.tbmc.boards.changes.singleton.ChangeFactory;
+import fr.tbmc.boards.changes.types.Change;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashMap;
 
 /**
  * Created by tbmc on 10/05/2017.

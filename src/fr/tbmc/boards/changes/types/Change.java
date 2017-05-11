@@ -1,4 +1,4 @@
-package fr.tbmc.boards.changes;
+package fr.tbmc.boards.changes.types;
 
 import fr.tbmc.boards.User;
 
