@@ -27,3 +27,18 @@ p-s <=> padding-small
     left: 0px;
 }
 
+/***********************
+**** Board page ***
+***********************/
+.row-margin{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row::selection {
+    background : transparent;
+}
+
+.row::-moz-selection {
+    background : transparent;
+}

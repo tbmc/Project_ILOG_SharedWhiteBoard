@@ -8,10 +8,11 @@ const VIRTUAL_SIZE = {
 };
 
 let canvasInstance;
+let canvasList = [];
+let lastId = null;
 
 window.onload = function() {
   initCanvas();
-  
 };
 
 function initCanvas() {
@@ -50,6 +51,7 @@ class Canvas {
     this.type = "line";
     this.color = "#000000";
     this.fill = false;
+    this.thickness = 11
     
     
     this.clickPosition = null;
@@ -72,24 +74,37 @@ class Canvas {
     };
   }
   
-  mouseMove(e) {
+  mouseMove(event) {
     if(!this.mouseIsDown)
       return;
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
-    this.draw(e);
+    this.draw(event);
   }
   
-  mouseUp(e) {
+  mouseUp(event) {
     if(!this.mouseIsDown)
       return;
     this.mouseIsDown = false;
-    let p = {
-      x: this.clickPosition.x,
-      y: this.clickPosition.y,
-    };
-    newFigureDrew(this.type, p, this.getXYFromEvent(event));
+
+    let coord = [
+        { x: this.clickPosition.x, y: this.clickPosition.y },
+        this.getXYFromEvent(event)
+    ];
+
+    coord[0] = this.getVirtualFromReal(coord[0]);
+    coord[1] = this.getVirtualFromReal(coord[1]);
+
+    let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
+    canvasList.push(elmtJSON);
+    submit(elmtJSON);
+
+    this.clear();
+    _.forEach(canvasList,function(e) {
+        drawListElmt(e);
+    })
+
   }
   
   draw(event) {
@@ -113,6 +128,8 @@ class Canvas {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
+    ctx.lineWidth = this.thickness;
+
     switch(this.type) {
       case "line":
         ctx.moveTo(px, py);
@@ -121,9 +138,12 @@ class Canvas {
       case "circle":
         this.drawCircle(px, py, x, y);
         break;
-        
+      case "rectangle":
+        this.drawRectangle(px, py, x, y);
+        break;
     }
-    if(this.fill) {
+    //Fill doesn't work with line type
+    if(this.fill && this.type != "line") {
       ctx.fill();
     }else {
       ctx.stroke();
@@ -138,13 +158,18 @@ class Canvas {
     let r = Math.sqrt(xx + yy) / 2;
     this.canvasCtx.arc(cx, cy, r, 0, 2 * Math.PI);
   }
-  
-  
+
+  drawRectangle(px, py, x, y) {
+    let rw = px - x
+    let rh = py - y
+    this.canvasCtx.rect(x, y, rw, rh);
+  }
+
   clear() {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    canvasList = [];
   }
-  
 }
 
 document.getElementById("buttonLine").onclick = () => {
@@ -153,18 +178,163 @@ document.getElementById("buttonLine").onclick = () => {
 document.getElementById("buttonCircle").onclick = () => {
   canvasInstance.type = "circle";
 };
-document.getElementById("buttonBlack").onclick = () => {
-  canvasInstance.color = "#000000";
+document.getElementById("buttonRect").onclick = () => {
+    canvasInstance.type = "rectangle";
 };
-document.getElementById("buttonRed").onclick = () => {
-  canvasInstance.color = "#ff0000";
+document.getElementById("buttonFill").onchange = () => {
+  if(canvasInstance.fill){
+      canvasInstance.fill = false;
+  } else {
+      canvasInstance.fill = true;
+  }
 };
 document.getElementById("buttonClear").onclick = () => {
   canvasInstance.clear();
 };
+document.getElementById("colorPicker").onchange = () => {
+    canvasInstance.color = document.getElementById("colorPicker").value;
+};
 
 
-function newFigureDrew(type, beginPoint, endPoint) {
+//
+function newFigureDrew(type, points, thickness, fill, color) {
+    var obj = {
+        type,
+        points,
+        thickness,
+        fill,
+        color
+    }
 
+    return JSON.stringify(obj);
 }
+
+//Submit infos needed to redraw the canvas element
+function submit(elmt) {
+    $.post(
+        "/api/do-change",
+        {
+          data: elmt
+        },
+        submitReturn,
+        'json'
+    ).fail(function(data) {
+        console.log(data);
+    });
+
+    function submitReturn(response){
+        console.log(response);
+    }
+};
+
+//Update canvas elements list
+function update() {
+    $.get(
+        "/api/get-changes",
+        {
+            lastId: lastId
+        }
+    ).done(function(data) {
+        // Add data received to the list
+        _.forEach(data, function(x) {
+            canvasList.push(x);
+        });
+        lastId = data[data.length - 1].id;
+    }).fail(function(data) {
+        console.log(data);
+    });
+
+    setTimeout(update(),1000);
+};
+
+//Draw on canvas a canvas list element
+function drawListElmt(JSONelmt){
+    let elmt = JSON.parse(JSONelmt);
+
+    //Keeping old user parameters in memory
+    let oldThickness = canvasInstance.thickness;
+    let oldColor = canvasInstance.color;
+    let oldFill = canvasInstance.fill;
+    let oldType = canvasInstance.type;
+
+
+    canvasInstance.thickness = elmt.thickness;
+    canvasInstance.color = elmt.color;
+    canvasInstance.fill = elmt.fill;
+    canvasInstance.type = elmt.type;
+
+    console.log(elmt);
+
+    elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
+    elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
+
+    let px = elmt.points[0].x;
+    let py = elmt.points[0].y;
+    let x = elmt.points[1].x;
+    let y = elmt.points[1].y;
+
+    canvasInstance.selectDraw(px, py, x, y);
+
+    //Recovering old parameters
+    canvasInstance.thickness = oldThickness;
+    canvasInstance.color = oldColor;
+    canvasInstance.fill = oldFill;
+    canvasInstance.type = oldType;
+}
+
+
+/**
+ * Refresh user list
+ */
+$(function() {
+  setInterval(refreshUserList, 5000);
+  refreshUserList();
+  
+  /**
+   * Initialize modal error
+   */
+  $("#modalErrorNotConnected").modal({
+    backdrop: "static",
+    keyboard: false,
+  });
+  $("#btnModalRedirectToConnectionPage").click(function() {
+    location.href = "/";
+  });
+});
+
+function refreshUserList() {
+  $.get("/api/user-list").done(function(data) {
+    $("#boardName").html(data.boardName);
+    let list = $("#userList");
+    list.html("");
+    _.forEach(data.list, function(e) {
+      let active = e == data.pseudo ? "active" : "";
+      let item = `<li class="list-group-item ${active}">${e}</li>`;
+      list.append(item);
+    });
+    $("#modalErrorNotConnected").modal("hide");
+  }).fail(function() {
+    $("#modalErrorNotConnected").modal("show");
+  });
+}
+
+/**
+ * Initialize tooltips
+ */
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 

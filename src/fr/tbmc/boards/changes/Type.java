@@ -15,8 +15,9 @@ public enum Type {
     RED0
     ;
 
-    public static Type getType(String type) {
-        return Type.valueOf(type);
+    public static Type getTypeFromString(String type) {
+        String upperCaseType = type.toUpperCase();
+        return Type.valueOf(upperCaseType);
     }
 
 }

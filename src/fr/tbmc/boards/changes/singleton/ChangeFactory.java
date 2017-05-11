@@ -63,7 +63,7 @@ public class ChangeFactory
         Gson gson = new GsonBuilder().create();
         HashMap map = gson.fromJson(json, HashMap.class);
         String strType = (String) map.get("type");
-        Type type = Type.valueOf(strType);
+        Type type = Type.getTypeFromString(strType);
         Color color = hexStringToColor((String) map.get("color"));
 
         int thickness = (int) Math.round((double) map.get("thickness"));

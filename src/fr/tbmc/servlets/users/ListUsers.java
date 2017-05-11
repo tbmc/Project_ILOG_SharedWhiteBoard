@@ -1,5 +1,6 @@
 package fr.tbmc.servlets.users;
 
+import fr.tbmc.boards.User;
 import fr.tbmc.boards.singleton.CreatedBoards;
 import fr.tbmc.response.Response;
 
@@ -23,7 +24,8 @@ public class ListUsers extends HttpServlet
     {
         HttpSession session = req.getSession();
         String boardName = (String) session.getAttribute("boardName");
-        String pseudo = (String) session.getAttribute("pseudo");
+        User user = (User) session.getAttribute("user");
+        String pseudo = user.getPseudo();
         if(boardName == null) {
             Response.simple(resp, 404, "boardName must be specified");
             return;

@@ -39,7 +39,7 @@
 
     <servlet>
         <servlet-name>GetChange</servlet-name>
-        <servlet-class>fr.tbmc.servlets.canvas.GetChange</servlet-class>
+        <servlet-class>fr.tbmc.servlets.canvas.GetChanges</servlet-class>
     </servlet>
 
 
