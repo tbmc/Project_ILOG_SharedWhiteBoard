@@ -13,6 +13,7 @@ let lastId = null;
 
 window.onload = function() {
   initCanvas();
+  setInterval(function(){ update(); }, 3000);
 };
 
 function initCanvas() {
@@ -100,6 +101,7 @@ class Canvas {
     canvasList.push(elmtJSON);
     submit(elmtJSON);
 
+    console.log(canvasList);
     this.clear();
     _.forEach(canvasList,function(e) {
         drawListElmt(e);
@@ -213,7 +215,7 @@ function newFigureDrew(type, points, thickness, fill, color) {
         color
     }
 
-    return JSON.stringify(obj);
+    return obj;
 }
 
 //Submit infos needed to redraw the canvas element
@@ -245,19 +247,16 @@ function update() {
         // Add data received to the list
         _.forEach(data, function(x) {
             canvasList.push(x);
+            drawListElmt(x);
         });
         lastId = data[data.length - 1].id;
     }).fail(function(data) {
         console.log(data);
     });
-
-    setTimeout(update(),1000);
 };
 
 //Draw on canvas a canvas list element
-function drawListElmt(JSONelmt){
-    let elmt = JSON.parse(JSONelmt);
-
+function drawListElmt(elmt){
     if(elmt.type != "CLEAR") {
         //Keeping old user parameters in memory
         let oldThickness = canvasInstance.thickness;
@@ -270,8 +269,6 @@ function drawListElmt(JSONelmt){
         canvasInstance.color = elmt.color;
         canvasInstance.fill = elmt.fill;
         canvasInstance.type = elmt.type;
-
-        console.log(elmt);
 
         elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
         elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
