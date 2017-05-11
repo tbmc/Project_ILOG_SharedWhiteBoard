@@ -5,7 +5,39 @@
     <jsp:param name="title" value="Tableau partagé" />
 </jsp:include>
 
-<div class="container">
+<div style="margin-top: 15px;">
+    <div class="col-xs-12 col-md-4 col-lg-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div style="float: right; margin-top: -5px;">
+                    <button
+                            type="button"
+                            class="btn btn-link"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Retourner à la page de connexion"
+                            onclick="location.href = '/';"
+                    >
+                        <i class="glyphicon glyphicon-menu-hamburger" style="color: white;"></i>
+                    </button>
+                </div>
+                <div id="boardName">
+                    Aucun tableau sélectionné
+                </div>
+            </div>
+            <div class="panel-body">
+                <ul id="userList" class="list-group">
+                    <li class="list-group-item">
+                        Aucun utilisateur connecté
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container col-xs-12 col-md-8 col-lg-10">
     <div class="row row-margin">
         <canvas
             id="canvas"
@@ -38,6 +70,35 @@
         <input type="button" class="btn btn-primary" id="buttonClear" value="Clear">
     </div>
 </div>
+
+
+
+
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalErrorNotConnected">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Erreur !
+            </div>
+            <div class="modal-body">
+                Il semblerait que vous ne soyez pas connecté.
+                Pour remédier à ce problème vous devez
+                vous connecter depuis la page de connexion.
+            </div>
+            <div class="modal-footer">
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-primary" id="btnModalRedirectToConnectionPage">
+                        Rediriger vers la page de connexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <%-- Include the script of the page --%>
 <script src="/lib/scripts/BoardPage.js"></script>

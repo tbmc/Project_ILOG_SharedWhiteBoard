@@ -294,3 +294,60 @@ function drawListElmt(JSONelmt){
     canvasInstance.fill = oldFill;
     canvasInstance.type = oldType;
 }
+
+
+/**
+ * Refresh user list
+ */
+$(function() {
+  setInterval(refreshUserList, 5000);
+  refreshUserList();
+  
+  /**
+   * Initialize modal error
+   */
+  $("#modalErrorNotConnected").modal({
+    backdrop: "static",
+    keyboard: false,
+  });
+  $("#btnModalRedirectToConnectionPage").click(function() {
+    location.href = "/";
+  });
+});
+
+function refreshUserList() {
+  $.get("/api/user-list").done(function(data) {
+    $("#boardName").html(data.boardName);
+    let list = $("#userList");
+    list.html("");
+    _.forEach(data.list, function(e) {
+      let active = e == data.pseudo ? "active" : "";
+      let item = `<li class="list-group-item ${active}">${e}</li>`;
+      list.append(item);
+    });
+    $("#modalErrorNotConnected").modal("hide");
+  }).fail(function() {
+    $("#modalErrorNotConnected").modal("show");
+  });
+}
+
+/**
+ * Initialize tooltips
+ */
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
