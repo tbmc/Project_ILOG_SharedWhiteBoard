@@ -16,7 +16,7 @@ import java.util.Collection;
 /**
  * Created by tbmc on 04/05/2017.
  */
-public class GetChange extends HttpServlet
+public class GetChanges extends HttpServlet
 {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException

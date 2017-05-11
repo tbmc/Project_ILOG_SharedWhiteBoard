@@ -2,15 +2,12 @@ package fr.tbmc.servlets;
 
 import fr.tbmc.boards.User;
 import fr.tbmc.boards.singleton.CreatedBoards;
-import fr.tbmc.servlets.boards.BoardList;
 import fr.tbmc.servlets.boards.CreateBoard;
 import fr.tbmc.servlets.canvas.DoChange;
-import fr.tbmc.servlets.canvas.GetChange;
+import fr.tbmc.servlets.canvas.GetChanges;
 import fr.tbmc.servlets.users.JoinBoard;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Created by tbmc on 10/05/2017.
@@ -129,7 +122,8 @@ public class TestChange extends Mockito
             doGet(req, resp);
         }
     }
-    public class TestChangeGetGet extends GetChange {
+    public class TestChangeGetGet extends GetChanges
+    {
         public void doGetTest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
         {
             doGet(req, resp);
