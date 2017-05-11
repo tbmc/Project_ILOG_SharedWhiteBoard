@@ -11,11 +11,14 @@ public class ChangeList implements Collection<Change>
 {
 
     public static int MAX_SIZE = 500;
+    public int maxSize = MAX_SIZE;
 
     protected LinkedList<Change> list = new LinkedList<>();
 
     @Override
     public boolean add(Change change) {
+        if(change == null)
+            return false;
         synchronized (list) {
             list.addFirst(change);
             gc();
@@ -26,7 +29,7 @@ public class ChangeList implements Collection<Change>
 
     public void gc() {
         synchronized (list) {
-            while(list.size() > MAX_SIZE) {
+            while(list.size() > maxSize) {
                 list.removeLast();
             }
         }
@@ -49,6 +52,15 @@ public class ChangeList implements Collection<Change>
             }
         }
         return cl;
+    }
+
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
+        gc();
+    }
+
+    public int getMaxSize() {
+        return maxSize;
     }
 
 
