@@ -168,6 +168,7 @@ class Canvas {
   clear() {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    canvasList = [];
   }
 }
 
