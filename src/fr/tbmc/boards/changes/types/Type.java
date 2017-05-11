@@ -1,4 +1,4 @@
-package fr.tbmc.boards.changes;
+package fr.tbmc.boards.changes.types;
 
 /**
  * Created by tbmc on 04/05/2017.

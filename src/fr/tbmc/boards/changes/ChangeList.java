@@ -1,5 +1,7 @@
 package fr.tbmc.boards.changes;
 
+import fr.tbmc.boards.changes.types.Change;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
