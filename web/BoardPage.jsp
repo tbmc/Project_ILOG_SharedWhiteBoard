@@ -36,33 +36,39 @@
     </div>
 </div>
 
+<div class="col-xs-12 col-md-8 col-lg-10">
+    <div class="panel panel-primary">
+        <div class="panel-body">
 
-<div class="container col-xs-12 col-md-8 col-lg-10">
-    <div class="row row-margin">
-        <canvas
-            id="canvas"
-            style="border: 1px solid gray;"
-            width="1000"
-            height="500"
-        >
-        </canvas>
-    </div>
-    <div class="row row-margin">
-        <input type="button" class="btn btn-primary" id="buttonLine" value="Line">
-        <input type="button" class="btn btn-primary" id="buttonCircle" value="Circle">
-        <input type="button" class="btn btn-primary" id="buttonRect" value="Rectangle">
-    </div>
-    <div class="row row-margin">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-                <input type="checkbox" id="buttonFill">
-                <span>Fill</span>
-            </label>
+            <div class="">
+                <div class="">
+                    <canvas
+                            id="canvas"
+                            style="border: 1px solid gray; width: 100%; height: 80vh;"
+
+                    >
+                    </canvas>
+                </div>
+                <div class="row row-margin">
+                    <input type="button" class="btn btn-primary" id="buttonLine" value="Line">
+                    <input type="button" class="btn btn-primary" id="buttonCircle" value="Circle">
+                    <input type="button" class="btn btn-primary" id="buttonRect" value="Rectangle">
+                </div>
+                <div class="row row-margin">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary">
+                            <input type="checkbox" id="buttonFill">
+                            <span>Fill</span>
+                        </label>
+                    </div>
+                    <input type="button" class="btn btn-primary" id="buttonClear" value="Clear">
+                </div>
+                <div class="row row-margin">
+                    <input type="color" id="colorPicker" value="#000000">
+                </div>
+            </div>
+
         </div>
-        <input type="button" class="btn btn-primary" id="buttonClear" value="Clear">
-    </div>
-    <div class="row row-margin">
-        <input type="color" id="colorPicker" value="#000000">
     </div>
 </div>
 
