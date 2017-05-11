@@ -14,11 +14,11 @@ public class PencilChange extends AbstractChange
 
     protected List<Point> points = null;
 
-    public static PencilChange PencilChangeFromListHashMap(User user, Date date, String id, Color color, int thickness, List<HashMap> points) {
+    public static PencilChange PencilChangeFromListHashMap(User user, Date date, String id, Color color, int thickness, List<Map> points) {
         List<Point> list = new ArrayList<>(points.size());
-        for(HashMap map : points) {
-            int x = (int) map.get("x");
-            int y = (int) map.get("y");
+        for(Map map : points) {
+            int x = (int) Math.round((Double) map.get("x"));
+            int y = (int) Math.round((Double) map.get("y"));
             Point p = new Point(x, y);
             list.add(p);
         }

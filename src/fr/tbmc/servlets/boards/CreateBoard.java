@@ -41,7 +41,7 @@ public class CreateBoard extends HttpServlet
             Response.simple(resp);
         }else {
             // If the creation is not successful
-            Response.simple(resp, 403, "Error: boards already exists");
+            Response.simple(resp, 403, "Error: boards already exists or name is incorrect");
         }
     }
 

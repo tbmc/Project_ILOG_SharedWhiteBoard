@@ -43,6 +43,9 @@ public class CreatedBoards
      * @return true if the process is successful or false if it fail, by example because name is already taken
      */
     public boolean createBoard(String name) {
+        if(name == null || name.length() < 1) {
+            return false;
+        }
         if(boardExists(name)) {
             return false;
         }
