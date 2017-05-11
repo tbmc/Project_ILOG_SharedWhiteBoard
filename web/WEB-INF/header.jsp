@@ -20,6 +20,7 @@
     <%-- Add custom stylesheet --%>
     <link rel="stylesheet" href="/lib/styles/all.css">
 
+
     <%-- Add the stylesheets form Bootstrap --%>
     <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
@@ -33,6 +34,9 @@
     in the rest of the page and JQuery has to be defined
     --%>
     <script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+
+    <%-- Add ColorCanvas stylesheet --%>
+    <link rel="stylesheet" href="/lib/ColorCanvas/colorcanvas.css">
 
 </head>
 <%--
