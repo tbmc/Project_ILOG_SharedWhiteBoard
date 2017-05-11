@@ -13,6 +13,10 @@ let lastId = null;
 
 window.onload = function() {
   initCanvas();
+  setInterval(function() {
+    update();
+  }, 500);
+  update();
 };
 
 function initCanvas() {
@@ -48,18 +52,18 @@ class Canvas {
   
   initCanvasEvents() {
     // Values by default
-    this.type = "line";
+    this.canvasCtx.lineCap = "round";
+    this.type = "LINE";
     this.color = "#000000";
     this.fill = false;
-    this.thickness = 11
-    
+    this.thickness = 5;
     
     this.clickPosition = null;
     this.mouseIsDown = false;
     let canvas = this.canvasElement;
     canvas.addEventListener("mousedown", e => this.mouseDown(e));
     window.addEventListener("mousemove", e => this.mouseMove(e));
-    window.addEventListener("mouseup",   e => this.mouseUp(e));
+    window.addEventListener("mouseup", e => this.mouseUp(e));
   }
   
   mouseDown(event) {
@@ -72,6 +76,7 @@ class Canvas {
       y: o.y,
       image,
     };
+    this.pencilArray = [{ x: o.x, y: o.y }];
   }
   
   mouseMove(event) {
@@ -87,24 +92,28 @@ class Canvas {
     if(!this.mouseIsDown)
       return;
     this.mouseIsDown = false;
-
-    let coord = [
+    
+    let coordinates;
+    if(this.type == "PENCIL") {
+      coordinates = this.pencilArray;
+      console.log(this.pencilArray.length);
+    } else {
+      coordinates = [
         { x: this.clickPosition.x, y: this.clickPosition.y },
         this.getXYFromEvent(event)
-    ];
-
-    coord[0] = this.getVirtualFromReal(coord[0]);
-    coord[1] = this.getVirtualFromReal(coord[1]);
-
-    let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
-    canvasList.push(elmtJSON);
-    submit(elmtJSON);
-
+      ];
+      coordinates[0] = this.getVirtualFromReal(coordinates[0]);
+      coordinates[1] = this.getVirtualFromReal(coordinates[1]);
+    }
+    
+    let elementJSON = newFigureDrew(this.type, coordinates, this.thickness, this.fill, this.color);
+    canvasList.push(elementJSON);
+    submit(elementJSON);
+    
     this.clear();
-    _.forEach(canvasList,function(e) {
-        drawListElmt(e);
+    _.forEach(canvasList, function(e) {
+      drawListElmt(e);
     })
-
   }
   
   draw(event) {
@@ -112,14 +121,31 @@ class Canvas {
     let px = this.clickPosition.x;
     let py = this.clickPosition.y;
     this.selectDraw(px, py, o.x, o.y);
+    
+    if(this.type == "PENCIL") {
+      let image = new Image();
+      image.src = this.canvasElement.toDataURL();
+      let p = this.clickPosition;
+      let d = Math.sqrt(Math.pow(o.x - p.x, 2) + Math.pow(o.y - p.y, 2));
+      if(d > this.thickness) {
+        this.clickPosition = {
+          x: o.x,
+          y: o.y,
+          image,
+        };
+        this.pencilArray.push(o);
+      }
+    }
   }
   
   getXYFromEvent(event) {
     let rect = this.canvasElement.getBoundingClientRect();
-    return {
+    let size = { width: rect.width, height: rect.height };
+    let pos = {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     };
+    return this.getRealFromVirtual(pos, size);
   }
   
   selectDraw(px, py, x, y) {
@@ -129,23 +155,27 @@ class Canvas {
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
     ctx.lineWidth = this.thickness;
-
+    
     switch(this.type) {
-      case "line":
+      case "LINE":
         ctx.moveTo(px, py);
         ctx.lineTo(x, y);
         break;
-      case "circle":
+      case "CIRCLE":
         this.drawCircle(px, py, x, y);
         break;
-      case "rectangle":
+      case "RECTANGLE":
         this.drawRectangle(px, py, x, y);
+        break;
+      case "PENCIL":
+        ctx.moveTo(px, py);
+        ctx.lineTo(x, y);
         break;
     }
     //Fill doesn't work with line type
-    if(this.fill && this.type != "line") {
+    if(this.fill && this.type != "LINE") {
       ctx.fill();
-    }else {
+    } else {
       ctx.stroke();
     }
   }
@@ -158,128 +188,158 @@ class Canvas {
     let r = Math.sqrt(xx + yy) / 2;
     this.canvasCtx.arc(cx, cy, r, 0, 2 * Math.PI);
   }
-
+  
   drawRectangle(px, py, x, y) {
     let rw = px - x
     let rh = py - y
     this.canvasCtx.rect(x, y, rw, rh);
   }
-
+  
   clear() {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    canvasList = [];
+  }
+  
+  changeClear() {
+    let canvas = this.canvasElement;
+    this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    let elmtJSON = newFigureDrew("CLEAR", null, null, null, null);
+    canvasList.push(elmtJSON);
+    submit(elmtJSON);
   }
 }
-
-document.getElementById("buttonLine").onclick = () => {
-  canvasInstance.type = "line";
-};
-document.getElementById("buttonCircle").onclick = () => {
-  canvasInstance.type = "circle";
-};
-document.getElementById("buttonRect").onclick = () => {
-    canvasInstance.type = "rectangle";
-};
-document.getElementById("buttonFill").onchange = () => {
-  if(canvasInstance.fill){
-      canvasInstance.fill = false;
+$("#buttonLine").click(() => {
+  canvasInstance.type = "LINE";
+});
+$("#buttonCircle").click(() => {
+  canvasInstance.type = "CIRCLE";
+});
+$("#buttonRect").click(() => {
+  canvasInstance.type = "RECTANGLE";
+});
+$("#buttonPencil").click(() => {
+  canvasInstance.type = "PENCIL";
+});
+$("#buttonFill").click(() => {
+  if(canvasInstance.fill) {
+    canvasInstance.fill = false;
   } else {
-      canvasInstance.fill = true;
+    canvasInstance.fill = true;
   }
-};
-document.getElementById("buttonClear").onclick = () => {
-  canvasInstance.clear();
-};
-document.getElementById("colorPicker").onchange = () => {
-    canvasInstance.color = document.getElementById("colorPicker").value;
-};
+});
+$("#buttonClear").click(() => {
+  canvasInstance.changeClear();
+});
+$("#inputLineSize").on("change", () => {
+  let v = $("#inputLineSize").val();
+  let n = parseInt(v);
+  if(!isNaN(n)) {
+    canvasInstance.thickness = n;
+  }
+});
+$(function() {
+  $("#inputLineSize").val(canvasInstance.thickness);
+});
+$("#colorPicker").on("change", () => {
+  canvasInstance.color = $("#colorPicker").val();
+});
 
+
+$("#canvas").on("selectionstart", preventDefault);
+$("#canvas").on("dragstart", preventDefault);
+
+function preventDefault(event) {
+  if(event && event.preventDefault) {
+    event.preventDefault();
+  }
+  return false;
+}
 
 //
 function newFigureDrew(type, points, thickness, fill, color) {
-    var obj = {
-        type,
-        points,
-        thickness,
-        fill,
-        color
-    }
-
-    return JSON.stringify(obj);
+  var obj = {
+    type,
+    points,
+    thickness,
+    fill,
+    color
+  };
+  
+  return obj;
 }
 
 //Submit infos needed to redraw the canvas element
 function submit(elmt) {
-    $.post(
-        "/api/do-change",
-        {
-          data: elmt
-        },
-        submitReturn,
-        'json'
-    ).fail(function(data) {
-        console.log(data);
-    });
-
-    function submitReturn(response){
-        console.log(response);
-    }
+  $.post(
+    "/api/do-change",
+    { data: JSON.stringify(elmt) }
+  ).fail(function(data) {
+    console.log(data);
+  }).done(function(data) {
+    console.log(data);
+  });
+  
 };
 
 //Update canvas elements list
 function update() {
-    $.get(
-        "/api/get-changes",
-        {
-            lastId: lastId
-        }
-    ).done(function(data) {
-        // Add data received to the list
-        _.forEach(data, function(x) {
-            canvasList.push(x);
-        });
-        lastId = data[data.length - 1].id;
-    }).fail(function(data) {
-        console.log(data);
+  $.get(
+    "/api/get-changes",
+    {
+      lastId: lastId
+    }
+  ).done(function(data) {
+    // Add data received to the list
+    _.forEach(data, function(x) {
+      canvasList.push(x);
+      drawListElmt(x);
     });
-
-    setTimeout(update(),1000);
+    if(data.length > 0) {
+      lastId = data[data.length - 1].id;
+    }
+  }).fail(function(data) {
+    console.log(data);
+  });
 };
 
 //Draw on canvas a canvas list element
-function drawListElmt(JSONelmt){
-    let elmt = JSON.parse(JSONelmt);
-
-    //Keeping old user parameters in memory
-    let oldThickness = canvasInstance.thickness;
-    let oldColor = canvasInstance.color;
-    let oldFill = canvasInstance.fill;
-    let oldType = canvasInstance.type;
-
-
-    canvasInstance.thickness = elmt.thickness;
-    canvasInstance.color = elmt.color;
-    canvasInstance.fill = elmt.fill;
-    canvasInstance.type = elmt.type;
-
-    console.log(elmt);
-
-    elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
-    elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
-
-    let px = elmt.points[0].x;
-    let py = elmt.points[0].y;
-    let x = elmt.points[1].x;
-    let y = elmt.points[1].y;
-
-    canvasInstance.selectDraw(px, py, x, y);
-
-    //Recovering old parameters
-    canvasInstance.thickness = oldThickness;
-    canvasInstance.color = oldColor;
-    canvasInstance.fill = oldFill;
-    canvasInstance.type = oldType;
+function drawListElmt(elmt) {
+  if(elmt.type == "CLEAR") {
+    canvasInstance.clear();
+    return;
+  }
+  
+  //Keeping old user parameters in memory
+  let oldThickness = canvasInstance.thickness;
+  let oldColor = canvasInstance.color;
+  let oldFill = canvasInstance.fill;
+  let oldType = canvasInstance.type;
+  
+  
+  canvasInstance.thickness = elmt.thickness;
+  canvasInstance.color = elmt.color;
+  canvasInstance.fill = elmt.fill;
+  canvasInstance.type = elmt.type;
+  
+  if(elmt.type != "PENCIL") {
+    let pointBegin = canvasInstance.getRealFromVirtual(elmt.points[0]);
+    let pointEnd = canvasInstance.getRealFromVirtual(elmt.points[1]);
+    canvasInstance.selectDraw(pointBegin.x, pointBegin.y, pointEnd.x, pointEnd.y)
+  } else {
+    for(let i = 0, l = elmt.points.length; i < l - 1; i++) {
+      let pointBegin = canvasInstance.getRealFromVirtual(elmt.points[i]);
+      let pointEnd = canvasInstance.getRealFromVirtual(elmt.points[i + 1]);
+      canvasInstance.selectDraw(pointBegin.x, pointBegin.y, pointEnd.x, pointEnd.y);
+    }
+  }
+  
+  //Recovering old parameters
+  canvasInstance.thickness = oldThickness;
+  canvasInstance.color = oldColor;
+  canvasInstance.fill = oldFill;
+  canvasInstance.type = oldType;
+  
 }
 
 

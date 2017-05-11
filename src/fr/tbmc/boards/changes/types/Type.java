@@ -10,6 +10,8 @@ public enum Type {
     RECTANGLE,
     CIRCLE,
 
+    PENCIL,
+
     CLEAR,
     UNDO,
     RED0

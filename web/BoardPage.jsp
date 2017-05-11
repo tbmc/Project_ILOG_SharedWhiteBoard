@@ -10,14 +10,8 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div style="float: right; margin-top: -5px;">
-                    <button
-                            type="button"
-                            class="btn btn-link"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="Retourner à la page de connexion"
-                            onclick="location.href = '/';"
-                    >
+                    <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom"
+                            title="Retourner à la page de connexion" onclick="location.href = '/';">
                         <i class="glyphicon glyphicon-menu-hamburger" style="color: white;"></i>
                     </button>
                 </div>
@@ -40,21 +34,20 @@
     <div class="panel panel-primary">
         <div class="panel-body">
 
-            <div class="">
+            <div style="user-select: none;">
                 <div class="">
-                    <canvas
-                            id="canvas"
-                            style="border: 1px solid gray; width: 100%; height: 80vh;"
+                    <canvas id="canvas" width="1000" height="500"
+                            style="border: 1px solid gray; width: 100%; height: calc(100vh - 250px); user-select: none;"
 
-                    >
-                    </canvas>
+                    ></canvas>
                 </div>
-                <div class="row row-margin">
-                    <input type="button" class="btn btn-primary" id="buttonLine" value="Line">
-                    <input type="button" class="btn btn-primary" id="buttonCircle" value="Circle">
+                <div class="row-margin">
+                    <input type="button" class="btn btn-primary" id="buttonLine" value="Ligne">
+                    <input type="button" class="btn btn-primary" id="buttonCircle" value="Cercle">
                     <input type="button" class="btn btn-primary" id="buttonRect" value="Rectangle">
+                    <input type="button" class="btn btn-primary" id="buttonPencil" value="Crayon">
                 </div>
-                <div class="row row-margin">
+                <div class="row-margin">
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary">
                             <input type="checkbox" id="buttonFill">
@@ -63,7 +56,13 @@
                     </div>
                     <input type="button" class="btn btn-primary" id="buttonClear" value="Clear">
                 </div>
-                <div class="row row-margin">
+                <div class="row-margin">
+                    <label>
+                        Size
+                        <input type="number" min="1" max="50" step="1" id="inputLineSize" value="11">
+                    </label>
+                </div>
+                <div class="row-margin">
                     <input type="color" id="colorPicker" value="#000000">
                 </div>
             </div>
@@ -71,11 +70,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modalErrorNotConnected">
