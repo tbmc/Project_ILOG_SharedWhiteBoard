@@ -87,15 +87,15 @@ class Canvas {
       return;
     this.mouseIsDown = false;
 
-    let coord = {
-      p : {px: this.clickPosition.x,
-      py: this.clickPosition.y},
-      c: this.getXYFromEvent(event)
-    };
-
+    let coord = [
+        { x: this.clickPosition.x, y: this.clickPosition.y },
+        this.getXYFromEvent(event)
+    ];
+      
     let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
     canvasList.push(elmtJSON);
     submit(elmtJSON);
+    drawListElmt(elmtJSON);
   }
   
   draw(event) {
@@ -119,7 +119,7 @@ class Canvas {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
-    ctx.lineWidth=this.thickness;
+    ctx.lineWidth = this.thickness;
 
     switch(this.type) {
       case "line":
@@ -245,7 +245,7 @@ function update() {
                 exist = true;
               }
             });
-            if(exist){
+            if(!exist){
               //Add an elmt to the list
               canvasList.push(x);
             }
@@ -254,5 +254,35 @@ function update() {
         console.log(data);
     });
 
-    setTimeout(update(),5000);
+    setTimeout(update(),1000);
 };
+
+//Draw on canvas a canvas list element
+function drawListElmt(JSONelmt){
+    let elmt = JSON.parse(JSONelmt);
+
+    //Keeping old user parameters in memory
+    let oldThickness = canvasInstance.thickness;
+    let oldColor = canvasInstance.color;
+    let oldFill = canvasInstance.fill;
+    let oldType = canvasInstance.type;
+
+
+    canvasInstance.thickness = elmt.thickness;
+    canvasInstance.color = elmt.color;
+    canvasInstance.fill = elmt.fill;
+    canvasInstance.type = elmt.type;
+
+    let px = elmt.points[0].x;
+    let py = elmt.points[0].y;
+    let x = elmt.points[1].x;
+    let y = elmt.points[1].y;
+
+    canvasInstance.selectDraw(px, py, x, y);
+
+    //Recovering old parameters
+    canvasInstance.thickness = oldThickness;
+    canvasInstance.color = oldColor;
+    canvasInstance.fill = oldFill;
+    canvasInstance.type = oldType;
+}
