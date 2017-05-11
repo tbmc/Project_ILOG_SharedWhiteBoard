@@ -23,7 +23,6 @@ public class DoChange extends HttpServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String data = req.getParameter("data");
-        System.out.println(data);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String boardName = (String) session.getAttribute("boardName");

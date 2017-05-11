@@ -80,6 +80,7 @@ class Canvas {
       return;
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log(canvas.width, canvas.height);
     this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
     this.draw(event);
   }
@@ -116,10 +117,12 @@ class Canvas {
   
   getXYFromEvent(event) {
     let rect = this.canvasElement.getBoundingClientRect();
-    return {
+    let size = { width: rect.width, height: rect.height };
+    let pos = {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     };
+    return this.getRealFromVirtual(pos, size);
   }
   
   selectDraw(px, py, x, y) {
