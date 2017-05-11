@@ -39,6 +39,8 @@ public class PencilChange extends AbstractChange
     {
         Map<String, Object> map = getMetaDataMap();
         map.put("points", getPoints());
+        map.put("thickness", getThickness());
+        map.put("color", getColor());
         return map;
     }
 
