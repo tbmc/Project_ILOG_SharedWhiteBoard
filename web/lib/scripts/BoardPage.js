@@ -9,6 +9,7 @@ const VIRTUAL_SIZE = {
 
 let canvasInstance;
 let canvasList = [];
+let lastId = null;
 
 window.onload = function() {
   initCanvas();
@@ -91,11 +92,16 @@ class Canvas {
         { x: this.clickPosition.x, y: this.clickPosition.y },
         this.getXYFromEvent(event)
     ];
-      
+
     let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
     canvasList.push(elmtJSON);
     submit(elmtJSON);
-    drawListElmt(elmtJSON);
+
+    this.clear();
+    _.forEach(canvasList,function(e) {
+        drawListElmt(e);
+    })
+
   }
   
   draw(event) {
@@ -234,22 +240,16 @@ function submit(elmt) {
 //Update canvas elements list
 function update() {
     $.get(
-        "/api/get-changes"
+        "/api/get-changes",
+        {
+            lastId: lastId
+        }
     ).done(function(data) {
         // Add data received to the list
         _.forEach(data, function(x) {
-            //Check existence in the list
-            var exist = false;
-            canvasList.forEach(function(y){
-              if(x == y){
-                exist = true;
-              }
-            });
-            if(!exist){
-              //Add an elmt to the list
-              canvasList.push(x);
-            }
+            canvasList.push(x);
         });
+        lastId = data[data.length - 1].id;
     }).fail(function(data) {
         console.log(data);
     });
@@ -272,6 +272,8 @@ function drawListElmt(JSONelmt){
     canvasInstance.color = elmt.color;
     canvasInstance.fill = elmt.fill;
     canvasInstance.type = elmt.type;
+
+    console.log(elmt);
 
     let px = elmt.points[0].x;
     let py = elmt.points[0].y;
