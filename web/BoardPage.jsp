@@ -46,7 +46,7 @@
                             id="canvas"
                             width="1000"
                             height="500"
-                            style="border: 1px solid gray; width: 100%; height: 80vh;"
+                            style="border: 1px solid gray; width: 100%; height: 80vh; user-select: none;"
 
                     >
                     </canvas>

@@ -80,7 +80,6 @@ class Canvas {
       return;
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(canvas.width, canvas.height);
     this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
     this.draw(event);
   }
@@ -246,7 +245,9 @@ function update() {
             canvasList.push(x);
             drawListElmt(x);
         });
-        lastId = data[data.length - 1].id;
+        if(data.length > 0) {
+          lastId = data[data.length - 1].id;
+        }
     }).fail(function(data) {
         console.log(data);
     });

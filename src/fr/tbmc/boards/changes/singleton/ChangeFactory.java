@@ -61,19 +61,32 @@ public class ChangeFactory
         HashMap map = gson.fromJson(json, HashMap.class);
         String strType = (String) map.get("type");
         Type type = Type.getTypeFromString(strType);
-        Color color = hexStringToColor((String) map.get("color"));
 
-        int thickness = (int) Math.round((double) map.get("thickness"));
-        boolean isFilled = (boolean) map.get("fill");
+        Color color = null;
+        int thickness = 0;
+        boolean isFilled = false;
+
+        if(type != CLEAR && type != UNDO) {
+            color = hexStringToColor((String) map.get("color"));
+            thickness = (int) Math.round((double) map.get("thickness"));
+            isFilled = (boolean) map.get("fill");
+        }
+
+
+        List points;
 
         switch(type) {
             case RECTANGLE:
             case CIRCLE:
             case LINE:
-                List points = (List) map.get("points");
+                points = (List) map.get("points");
                 Map p1 = (Map) points.get(0);
                 Map p2 = (Map) points.get(1);
                 return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
+
+            case PENCIL:
+                points = (List) map.get("points");
+                return createPencilChange(user, color, thickness, points);
 
             case CLEAR:
                 return createClearChange(user);
@@ -87,6 +100,13 @@ public class ChangeFactory
             default:
                 return null;
         }
+    }
+
+    public Change createPencilChange(User user, Color color, int thickness, List list) {
+        Date date = new Date();
+        String id = UUID.randomUUID().toString();
+        PencilChange pc = PencilChange.PencilChangeFromListHashMap(user, date, id, color, thickness, list);
+        return pc;
     }
 
     public Change createUndoChange(User user, String previousId) {
