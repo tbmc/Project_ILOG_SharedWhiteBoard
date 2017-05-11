@@ -93,6 +93,9 @@ class Canvas {
         this.getXYFromEvent(event)
     ];
 
+    coord[0] = this.getVirtualFromReal(coord[0]);
+    coord[1] = this.getVirtualFromReal(coord[1]);
+
     let elmtJSON = newFigureDrew(this.type,coord,this.thickness,this.fill,this.color);
     canvasList.push(elmtJSON);
     submit(elmtJSON);
@@ -274,6 +277,9 @@ function drawListElmt(JSONelmt){
     canvasInstance.type = elmt.type;
 
     console.log(elmt);
+
+    elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
+    elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
 
     let px = elmt.points[0].x;
     let py = elmt.points[0].y;
