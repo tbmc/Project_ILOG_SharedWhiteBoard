@@ -11,8 +11,9 @@ public enum Type {
     CIRCLE,
     ;
 
-    public static Type getType(String type) {
-        return Type.valueOf(type);
+    public static Type getTypeFromString(String type) {
+        String upperCaseType = type.toUpperCase();
+        return Type.valueOf(upperCaseType);
     }
 
 }
