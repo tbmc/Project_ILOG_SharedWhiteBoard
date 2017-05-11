@@ -63,7 +63,7 @@ $(function() {
     /**
      * Send an http request to server to check if the names are taken
      */
-    $.get("/api/boards-exists", {
+    $.get("/api/board-exists", {
       // Parameters
       name: name,
       pseudo: pseudo,
@@ -141,7 +141,7 @@ $(function() {
   /**
    * Send a request to the server to get the list of sessions
    */
-  $.get("/api/boards-list").done(function(data) {
+  $.get("/api/board-list").done(function(data) {
     // Get the component showing session list
     var sn = $("#sessionName");
     // Empty the list
@@ -157,10 +157,11 @@ $(function() {
 $(function() {
   $("#createBoardButton").click(function() {
     var bn = $("#boardName").val();
-    $.post("/api/boards-create", {
+    $.post("/api/board-create", {
       name: bn
     }).done(function(data) {
-    
+      var pseudo = $("#pseudo").val();
+      joinBoard(pseudo, bn);
     }).fail(function(data) {
       $("#alertErrorCreateBoard").css("display", "block");
       setTimeout(function() {
@@ -169,7 +170,30 @@ $(function() {
     });
     
   });
+  $("#joinSessionButton").click(function() {
+    var boardName = $("#sessionName").val();
+    var pseudo = $("#pseudo").val();
+    joinBoard(pseudo, boardName);
+  });
 });
+
+function joinBoard(pseudo, boardName) {
+  $.get("/api/board-join", {
+      BoardName: boardName,
+      pseudo: pseudo,
+    }).done(function(data) {
+      redirectToJoin();
+    }).fail(function() {
+      $("#alertErrorJoinBoard").css("display", "block");
+      setTimeout(function() {
+        $("#alertErrorJoinBoard").css("display", "none");
+      }, 5000);
+    });
+}
+
+function redirectToJoin() {
+  location.href = "/BoardPage.jsp";
+}
 
 
 
