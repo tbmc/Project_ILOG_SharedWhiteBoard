@@ -1,7 +1,7 @@
 package fr.tbmc.servlets.canvas;
 
 import fr.tbmc.boards.User;
-import fr.tbmc.boards.changes.Change;
+import fr.tbmc.boards.changes.types.Change;
 import fr.tbmc.boards.singleton.CreatedBoards;
 import fr.tbmc.response.Response;
 

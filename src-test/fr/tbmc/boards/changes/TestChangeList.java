@@ -2,6 +2,7 @@ package fr.tbmc.boards.changes;
 
 import fr.tbmc.boards.User;
 import fr.tbmc.boards.changes.singleton.ChangeFactory;
+import fr.tbmc.boards.changes.types.Change;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

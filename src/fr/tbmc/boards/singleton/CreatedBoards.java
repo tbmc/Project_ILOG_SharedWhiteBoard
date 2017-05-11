@@ -2,7 +2,7 @@ package fr.tbmc.boards.singleton;
 
 import fr.tbmc.boards.Board;
 import fr.tbmc.boards.User;
-import fr.tbmc.boards.changes.Change;
+import fr.tbmc.boards.changes.types.Change;
 
 import java.util.*;
 

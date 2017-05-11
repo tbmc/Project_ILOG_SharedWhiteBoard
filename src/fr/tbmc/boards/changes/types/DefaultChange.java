@@ -1,4 +1,4 @@
-package fr.tbmc.boards.changes;
+package fr.tbmc.boards.changes.types;
 
 import fr.tbmc.boards.User;
 
@@ -45,5 +45,15 @@ public class DefaultChange extends AbstractChange
         return list;
     }
 
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = getMetaDataMap();
+        map.put("color", getColorString());
+        map.put("thickness", getThickness());
+        map.put("fill", isFilled());
+        // Method which needs to be overrode
+        map.put("points", getPoints());
+        return map;
+    }
 
 }
