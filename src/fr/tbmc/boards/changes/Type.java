@@ -9,6 +9,10 @@ public enum Type {
     LINE,
     RECTANGLE,
     CIRCLE,
+
+    CLEAR,
+    UNDO,
+    RED0
     ;
 
     public static Type getType(String type) {
