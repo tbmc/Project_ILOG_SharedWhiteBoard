@@ -1,2 +1,2 @@
 
-<%@ include file="connectionPage.jsp" %>
+<%@ include file="ConnectionPage.jsp" %>

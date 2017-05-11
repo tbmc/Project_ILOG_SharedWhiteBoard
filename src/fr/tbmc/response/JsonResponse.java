@@ -1,4 +1,4 @@
-package fr.tbmc.utils;
+package fr.tbmc.response;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,21 +50,6 @@ public class JsonResponse
 
         // Force the writer to write in the output stream
         out.flush();
-    }
-
-    /**
-     * Same as method
-     * @see JsonResponse#respond(HttpServletResponse, Object)
-     * except that it instantiate the class necessary to encore to JSON
-     *
-     * @param resp
-     * @param object
-     * @throws IOException
-     */
-    public static void r(HttpServletResponse resp, Object object) throws IOException
-    {
-        JsonResponse jr = new JsonResponse();
-        jr.respond(resp, object);
     }
 
 }

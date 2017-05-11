@@ -29,7 +29,7 @@ function visibleTerm(visible) {
 // When the body of the page is fully loaded
 $(function() {
   /**
-   * When user clicks on radio button to select a panel
+   * When users clicks on radio button to select a panel
    * disable the other one
    */
   $('#radioSelectNew').click(function() {
@@ -72,7 +72,7 @@ $(function() {
     .always(function(data) {
       // If the data is null, it can crash, so it prevent this
       if(!data) data = {};
-      // If the length is 0 the user hasn't type anything so it's not an error
+      // If the length is 0 the users hasn't type anything so it's not an error
       if(pseudo.length > 0 || pseudoHasAlreadyChanged) {
         setFeedback("pseudo", !data.pseudo);
         pseudoHasAlreadyChanged = true;
@@ -160,7 +160,8 @@ $(function() {
     $.post("/api/board-create", {
       name: bn
     }).done(function(data) {
-    
+      var pseudo = $("#pseudo").val();
+      joinBoard(pseudo, bn);
     }).fail(function(data) {
       $("#alertErrorCreateBoard").css("display", "block");
       setTimeout(function() {
@@ -169,7 +170,30 @@ $(function() {
     });
     
   });
+  $("#joinSessionButton").click(function() {
+    var boardName = $("#sessionName").val();
+    var pseudo = $("#pseudo").val();
+    joinBoard(pseudo, boardName);
+  });
 });
+
+function joinBoard(pseudo, boardName) {
+  $.get("/api/board-join", {
+      BoardName: boardName,
+      pseudo: pseudo,
+    }).done(function(data) {
+      redirectToJoin();
+    }).fail(function() {
+      $("#alertErrorJoinBoard").css("display", "block");
+      setTimeout(function() {
+        $("#alertErrorJoinBoard").css("display", "none");
+      }, 5000);
+    });
+}
+
+function redirectToJoin() {
+  location.href = "/BoardPage.jsp";
+}
 
 
 

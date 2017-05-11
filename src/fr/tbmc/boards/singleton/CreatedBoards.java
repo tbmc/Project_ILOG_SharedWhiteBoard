@@ -1,6 +1,8 @@
 package fr.tbmc.boards.singleton;
 
 import fr.tbmc.boards.Board;
+import fr.tbmc.boards.User;
+import fr.tbmc.boards.changes.Change;
 
 import java.util.*;
 
@@ -36,8 +38,8 @@ public class CreatedBoards
     }
 
     /**
-     * Create a new board
-     * @param name Name of the board
+     * Create a new boards
+     * @param name Name of the boards
      * @return true if the process is successful or false if it fail, by example because name is already taken
      */
     public boolean createBoard(String name) {
@@ -51,7 +53,7 @@ public class CreatedBoards
     }
 
     /**
-     * Check if the board name exists
+     * Check if the boards name exists
      * @param name
      * @return true if exists, false if not
      */
@@ -63,17 +65,56 @@ public class CreatedBoards
     }
 
     /**
-     * Check if a board contains a user
-     * @param name Name of the board that contains user
-     * @param pseudo Name of the user to check if exists
-     * @return false if the pseudo is not used in the board or if the board does not exists
-     *          true if the pseudo is used in the board
+     * Check if a boards contains a users
+     * @param name Name of the boards that contains users
+     * @param pseudo Name of the users to check if exists
+     * @return false if the pseudo is not used in the boards or if the boards does not exists
+     *          true if the pseudo is used in the boards
      */
     public boolean boardHasPseudo(String name, String pseudo) {
         if(!boardExists(name))
             return false;
         Board b = boardList.get(name);
         return b.hasUser(pseudo);
+    }
+
+    protected Board getVerifiedBoard(String boardName) throws ClassNotFoundException
+    {
+        Board board = boardList.get(boardName);
+        if(board == null)
+            throw new ClassNotFoundException(String.format("Board %s doesn't exists", boardName));
+        return board;
+    }
+
+    public void addUserToBoard(String boardName, User user)
+            throws IllegalArgumentException, ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        board.addUser(user);
+    }
+
+    public Collection<String> listUsersFromBoard(String boardName) throws ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        return board.listUsers();
+    }
+
+    public void addChangeToBoard(String boardName, Change change) throws ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        board.addChange(change);
+    }
+
+    public Collection<Change> getChangesSinceLastIdentifierFromBoard(String boardName, String id) throws ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        return board.getChangesSinceLastIdentifier(id);
+    }
+
+    public String getLastChangeIdentifierFromBoard(String boardName) throws ClassNotFoundException
+    {
+        Board board = getVerifiedBoard(boardName);
+        return board.getLastChangeIdentifier();
     }
 
 

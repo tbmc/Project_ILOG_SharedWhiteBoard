@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+
     <!-- Déclaration des servlets -->
     <servlet>
         <servlet-name>MainServlet</servlet-name>
@@ -13,13 +14,36 @@
 
     <servlet>
         <servlet-name>BoardList</servlet-name>
-        <servlet-class>fr.tbmc.servlets.board.BoardList</servlet-class>
+        <servlet-class>fr.tbmc.servlets.boards.BoardList</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>CreateBoard</servlet-name>
-        <servlet-class>fr.tbmc.servlets.board.CreateBoard</servlet-class>
+        <servlet-class>fr.tbmc.servlets.boards.CreateBoard</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>JoinBoard</servlet-name>
+        <servlet-class>fr.tbmc.servlets.users.JoinBoard</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ListUsers</servlet-name>
+        <servlet-class>fr.tbmc.servlets.users.ListUsers</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DoChange</servlet-name>
+        <servlet-class>fr.tbmc.servlets.canvas.DoChange</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>GetChange</servlet-name>
+        <servlet-class>fr.tbmc.servlets.canvas.GetChange</servlet-class>
+    </servlet>
+
+
+
 
 
     <!-- Mapping -->
@@ -38,5 +62,30 @@
         <url-pattern>/api/board-create</url-pattern>
         <url-pattern>/api/board-exists</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>JoinBoard</servlet-name>
+        <url-pattern>/api/board-join</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ListUsers</servlet-name>
+        <url-pattern>/api/user-list</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DoChange</servlet-name>
+        <url-pattern>/api/do-change</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetChange</servlet-name>
+        <url-pattern>/api/get-changes</url-pattern>
+    </servlet-mapping>
+
+
+    <listener>
+        <description>Session listener for timeout</description>
+        <listener-class>fr.tbmc.session.SessionListener</listener-class>
+    </listener>
 
 </web-app>

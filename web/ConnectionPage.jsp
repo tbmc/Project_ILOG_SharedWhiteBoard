@@ -75,7 +75,7 @@
                                         <input type="button" value="Créer" class="btn btn-default" id="createBoardButton">
                                     </div>
 
-                                </div> <%-- Panel create new board --%>
+                                </div> <%-- Panel create new boards --%>
 
                             </div> <%-- Panel body --%>
                         </div> <%-- Panel --%>
@@ -84,6 +84,11 @@
                     <div class="col-md-6 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
+
+                                <%-- Alert to show when there is an error --%>
+                                <div class="alert alert-danger" style="display: none;" id="alertErrorJoinBoard">
+                                    <strong>Erreur : </strong> Impossible de rejoindre le salon
+                                </div>
 
                                 <%-- Selector of the joining session --%>
                                 <div class="center-block p-s">
@@ -126,7 +131,7 @@
 
 
 <%-- Include the script of the page --%>
-<script src="/lib/scripts/connectionPage.js"></script>
+<script src="/lib/scripts/ConnectionPage.js"></script>
 
 <%-- Include the footer --%>
 <%@ include file="WEB-INF/footer.jsp" %>

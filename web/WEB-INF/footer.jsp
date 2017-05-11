@@ -2,7 +2,7 @@
 
     <%--
     Include scripts here because they are loaded after the rest of the page
-    and the user has the impression of a faster loading
+    and the users has the impression of a faster loading
     --%>
 
     <%-- Include Bootstrap JavaScript --%>
