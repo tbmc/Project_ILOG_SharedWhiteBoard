@@ -90,6 +90,8 @@ public abstract class AbstractChange implements Change
     }
 
     public static String colorToHexString(Color color) {
+        if(color == null)
+            return "";
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 

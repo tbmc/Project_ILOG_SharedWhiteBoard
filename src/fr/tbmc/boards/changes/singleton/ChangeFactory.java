@@ -65,15 +65,15 @@ public class ChangeFactory
         HashMap map = gson.fromJson(json, HashMap.class);
         String strType = (String) map.get("type");
         Type type = Type.getTypeFromString(strType);
-        Color color = hexStringToColor((String) map.get("color"));
-
-        int thickness = (int) Math.round((double) map.get("thickness"));
-        boolean isFilled = (boolean) map.get("fill");
 
         if(RECTANGLE == type || CIRCLE == type || LINE == type) {
             List points = (List) map.get("points");
             Map p1 = (Map) points.get(0);
             Map p2 = (Map) points.get(1);
+            Color color = hexStringToColor((String) map.get("color"));
+            int thickness = (int) Math.round((double) map.get("thickness"));
+            boolean isFilled = (boolean) map.get("fill");
+
             return createDefaultChange(type, user, color, thickness, isFilled, pointFromMap(p1), pointFromMap(p2));
         }else if(CLEAR == type) {
             return createClearChange(type, user);

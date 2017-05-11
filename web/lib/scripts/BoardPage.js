@@ -101,7 +101,6 @@ class Canvas {
     canvasList.push(elmtJSON);
     submit(elmtJSON);
 
-    console.log(canvasList);
     this.clear();
     _.forEach(canvasList,function(e) {
         drawListElmt(e);
@@ -213,7 +212,7 @@ function newFigureDrew(type, points, thickness, fill, color) {
         thickness,
         fill,
         color
-    }
+    };
 
     return obj;
 }
@@ -221,19 +220,14 @@ function newFigureDrew(type, points, thickness, fill, color) {
 //Submit infos needed to redraw the canvas element
 function submit(elmt) {
     $.post(
-        "/api/do-change",
-        {
-          data: elmt
-        },
-        submitReturn,
-        'json'
+      "/api/do-change",
+      { data: JSON.stringify(elmt) }
     ).fail(function(data) {
-        console.log(data);
+      console.log(data);
+    }).done(function(data) {
+      console.log(data);
     });
-
-    function submitReturn(response){
-        console.log(response);
-    }
+    
 };
 
 //Update canvas elements list
