@@ -48,7 +48,7 @@ class Canvas {
   
   initCanvasEvents() {
     // Values by default
-    this.type = "line";
+    this.type = "LINE";
     this.color = "#000000";
     this.fill = false;
     this.thickness = 11
@@ -104,7 +104,6 @@ class Canvas {
     _.forEach(canvasList,function(e) {
         drawListElmt(e);
     })
-
   }
   
   draw(event) {
@@ -123,31 +122,31 @@ class Canvas {
   }
   
   selectDraw(px, py, x, y) {
-    let canvas = this.canvasElement;
-    let ctx = this.canvasCtx;
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.strokeStyle = this.color;
-    ctx.lineWidth = this.thickness;
+        let canvas = this.canvasElement;
+        let ctx = this.canvasCtx;
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.thickness;
 
-    switch(this.type) {
-      case "line":
-        ctx.moveTo(px, py);
-        ctx.lineTo(x, y);
-        break;
-      case "circle":
-        this.drawCircle(px, py, x, y);
-        break;
-      case "rectangle":
-        this.drawRectangle(px, py, x, y);
-        break;
-    }
-    //Fill doesn't work with line type
-    if(this.fill && this.type != "line") {
-      ctx.fill();
-    }else {
-      ctx.stroke();
-    }
+        switch(this.type) {
+          case "LINE":
+            ctx.moveTo(px, py);
+            ctx.lineTo(x, y);
+            break;
+          case "CIRCLE":
+            this.drawCircle(px, py, x, y);
+            break;
+          case "RECTANGLE":
+            this.drawRectangle(px, py, x, y);
+            break;
+        }
+        //Fill doesn't work with line type
+        if(this.fill && this.type != "LINE") {
+          ctx.fill();
+        }else {
+          ctx.stroke();
+        }
   }
   
   drawCircle(px, py, x, y) {
@@ -166,20 +165,28 @@ class Canvas {
   }
 
   clear() {
+      let canvas = this.canvasElement;
+      this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  changeClear() {
     let canvas = this.canvasElement;
     this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    canvasList = [];
+
+    let elmtJSON = newFigureDrew("CLEAR",null,null,null,null);
+    canvasList.push(elmtJSON);
+    submit(elmtJSON);
   }
 }
 
 document.getElementById("buttonLine").onclick = () => {
-  canvasInstance.type = "line";
+  canvasInstance.type = "LINE";
 };
 document.getElementById("buttonCircle").onclick = () => {
-  canvasInstance.type = "circle";
+  canvasInstance.type = "CIRCLE";
 };
 document.getElementById("buttonRect").onclick = () => {
-    canvasInstance.type = "rectangle";
+    canvasInstance.type = "RECTANGLE";
 };
 document.getElementById("buttonFill").onchange = () => {
   if(canvasInstance.fill){
@@ -189,7 +196,7 @@ document.getElementById("buttonFill").onchange = () => {
   }
 };
 document.getElementById("buttonClear").onclick = () => {
-  canvasInstance.clear();
+  canvasInstance.changeClear();
 };
 document.getElementById("colorPicker").onchange = () => {
     canvasInstance.color = document.getElementById("colorPicker").value;
@@ -251,35 +258,39 @@ function update() {
 function drawListElmt(JSONelmt){
     let elmt = JSON.parse(JSONelmt);
 
-    //Keeping old user parameters in memory
-    let oldThickness = canvasInstance.thickness;
-    let oldColor = canvasInstance.color;
-    let oldFill = canvasInstance.fill;
-    let oldType = canvasInstance.type;
+    if(elmt.type != "CLEAR") {
+        //Keeping old user parameters in memory
+        let oldThickness = canvasInstance.thickness;
+        let oldColor = canvasInstance.color;
+        let oldFill = canvasInstance.fill;
+        let oldType = canvasInstance.type;
 
 
-    canvasInstance.thickness = elmt.thickness;
-    canvasInstance.color = elmt.color;
-    canvasInstance.fill = elmt.fill;
-    canvasInstance.type = elmt.type;
+        canvasInstance.thickness = elmt.thickness;
+        canvasInstance.color = elmt.color;
+        canvasInstance.fill = elmt.fill;
+        canvasInstance.type = elmt.type;
 
-    console.log(elmt);
+        console.log(elmt);
 
-    elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
-    elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
+        elmt.points[0] = canvasInstance.getRealFromVirtual(elmt.points[0]);
+        elmt.points[1] = canvasInstance.getRealFromVirtual(elmt.points[1]);
 
-    let px = elmt.points[0].x;
-    let py = elmt.points[0].y;
-    let x = elmt.points[1].x;
-    let y = elmt.points[1].y;
+        let px = elmt.points[0].x;
+        let py = elmt.points[0].y;
+        let x = elmt.points[1].x;
+        let y = elmt.points[1].y;
 
-    canvasInstance.selectDraw(px, py, x, y);
+        canvasInstance.selectDraw(px, py, x, y);
 
-    //Recovering old parameters
-    canvasInstance.thickness = oldThickness;
-    canvasInstance.color = oldColor;
-    canvasInstance.fill = oldFill;
-    canvasInstance.type = oldType;
+        //Recovering old parameters
+        canvasInstance.thickness = oldThickness;
+        canvasInstance.color = oldColor;
+        canvasInstance.fill = oldFill;
+        canvasInstance.type = oldType;
+    } else {
+        canvasInstance.clear();
+    }
 }
 
 
