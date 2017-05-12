@@ -83,8 +83,10 @@ class Canvas {
     if(!this.mouseIsDown)
       return;
     let canvas = this.canvasElement;
-    this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
+    if(this.type != "PENCIL") {
+      this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      this.canvasCtx.drawImage(this.clickPosition.image, 0, 0);
+    }
     this.draw(event);
   }
   
@@ -96,7 +98,6 @@ class Canvas {
     let coordinates;
     if(this.type == "PENCIL") {
       coordinates = this.pencilArray;
-      console.log(this.pencilArray.length);
     } else {
       coordinates = [
         { x: this.clickPosition.x, y: this.clickPosition.y },
@@ -123,15 +124,15 @@ class Canvas {
     this.selectDraw(px, py, o.x, o.y);
     
     if(this.type == "PENCIL") {
-      let image = new Image();
-      image.src = this.canvasElement.toDataURL();
+      // let image = new Image();
+      // image.src = this.canvasElement.toDataURL();
       let p = this.clickPosition;
       let d = Math.sqrt(Math.pow(o.x - p.x, 2) + Math.pow(o.y - p.y, 2));
       if(d > this.thickness) {
         this.clickPosition = {
           x: o.x,
           y: o.y,
-          image,
+          // image,
         };
         this.pencilArray.push(o);
       }
@@ -221,7 +222,7 @@ $("#buttonRect").click(() => {
 $("#buttonPencil").click(() => {
   canvasInstance.type = "PENCIL";
 });
-$("#buttonFill").click(() => {
+$("#buttonFill").on("change", () => {
   if(canvasInstance.fill) {
     canvasInstance.fill = false;
   } else {
@@ -242,6 +243,7 @@ $(function() {
   $("#inputLineSize").val(canvasInstance.thickness);
 });
 $("#colorPicker").on("change", () => {
+  console.log($("#colorPicker").val());
   canvasInstance.color = $("#colorPicker").val();
 });
 
