@@ -1,4 +1,4 @@
-# Document développeur
+# Documentation développeur
 
 
 ## Installation de Tomcat Apache Server  (Version 9.0)
@@ -15,7 +15,7 @@ IntelliJ IDEA est un IDE Java commercial développé par JetBrains. Il est une a
 
 On crée un nouveau projet à partir d'un logiciel de contrôle de version (ici, GitHub)
 
-![NewProject](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/newProjectCreation.png)
+![NewProject](img/newProjectCreation.png)
 
 On choisit le répertoire GitHub dans lequel se trouve le projet de Tableau blanc :
 [Répertoire du Tableau Blanc](https://github.com/TelecomLille/ILOG2017.git)
