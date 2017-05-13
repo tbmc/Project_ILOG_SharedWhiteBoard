@@ -105,7 +105,7 @@ S'il n'y a pas de Source Roots, retournez dans le menu du projet, faites un clic
 
 Une fois cela fait, on peut créer l'artefact.
 
-Dans File -> Project Structure -> Artefacts:
+Dans File -> Project Structure -> Artifacts:
 
 ![ArtefactExploded](img/artefactExploded.png)
 
