@@ -2,7 +2,7 @@
 
 
 ## Installation de Tomcat Apache Server  (Version 9.0)
-[I'm an inline-style link](https://tomcat.apache.org/download-90.cgi)
+[Tomcat 9.0](https://tomcat.apache.org/download-90.cgi)
 
 Dézippez l'archive correspondant à votre système à l'endroit voulu et vous aurez votre installation d'Apache Tomcat Server prête à être utilisée !
 
@@ -18,50 +18,50 @@ On crée un nouveau projet à partir d'un logiciel de contrôle de version (ici,
 ![NewProject](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/newProjectCreation.png)
 
 On choisit le répertoire GitHub dans lequel se trouve le projet de Tableau blanc :
-[I'm an inline-style link](https://github.com/TelecomLille/ILOG2017.git)
+[Répertoire du Tableau Blanc](https://github.com/TelecomLille/ILOG2017.git)
 
 On choisit aussi à quel endroit sera créé le projet ainsi que le nom du dossier qui l'accueillera.
 
-![NewProject](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/newProjectCreation2.png)
+![NewProject](img/newProjectCreation2.png)
 
 Ensuite, on lance le clonage et on attend qu'il se finisse (cela peut prendre quelques minutes).
 
 Bien sûr, nous sommes sur la branche master (par défaut) du répertoire Git et notre projet est situé dans une autre branche : whtbrd.
 Il faut donc indiquer à IntelliJ qu'on souhaite se positionner sur cette branche.
 
-![GitBranch](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/branchGit.png)
+![GitBranch](img/branchGit.png)
 
-![GitBranch](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/branchGitCheck.png)
+![GitBranch](img/branchGitCheck.png)
 
 Il suffit alors d'accepter qu'une branche locale soit créée sous le nom de la branche distante et le tour est joué. Si vous retournez dans le menu des « Branches », vous devriez voir ceci :
 
-![WhtBrdBranch](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/whtbrd.png)
+![WhtBrdBranch](img/whtbrd.png)
 
 Cela indique que vous êtes positionné sur la branche whtbrd.
 Il ne vous suffit plus alors qu'à effectuer un fetch sur cette branche pour récupérer l'ensemble du projet de tableau blanc.
 Cette fonctionnalité se situe dans VCS → Git → Fetch. 
 Votre projet devrait donc présenter les dossiers suivants :
 
-![ProjectFiles](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/projectFiles.png)
+![ProjectFiles](img/projectFiles.png)
 
 
 ### Vérification de la configuration du projet
 
 Avant de continuer, il faut vérifier que le projet soit correctement configuré.
 
-![ProjectSettings](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/projectSettings.png)
+![ProjectSettings](img/projectSettings.png)
 
 Notamment qu'il possède bien un chemin où stocker les fichiers compilés!
 
 
 ### Création d'une configuration de lancement Tomcat
 
-![RunConfiguration](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/runConfiguration.png)
+![RunConfiguration](img/runConfiguration.png)
 
 Créez la nouvelle configuration suivante: Tomcat Server -> Local
 Appuyez sur le bouton "Configure..." sur la page Server qui vient de s'ouvrir.
 
-![TomcatLibraries](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/tomcatLibraries.png)
+![TomcatLibraries](img/tomcatLibraries.png)
 
 Ajouter les deux librairies indiquées qui sont présentes dans le dossier lib de Tomcat.
 
@@ -70,9 +70,9 @@ Ajouter les deux librairies indiquées qui sont présentes dans le dossier lib d
 
 Dans File → Project Structure → Libraries:
 
-![ProjectLibraries](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/projectLibraries.png)
+![ProjectLibraries](img/projectLibraries.png)
 
-Bibliothèque GSON disponible ici : [I'm an inline-style link](https://github.com/google/gson)
+Bibliothèque GSON disponible ici : [GSON.jar](https://github.com/google/gson)
 Les deux autres bibliothèques se trouvent dans le dossier lib de Tomcat.
 
 
@@ -95,55 +95,55 @@ Pour créer notre artefact, nous avons besoin de créer un web facet qui nous pe
 
 On va pour cela aller dans File → Project Structure → Facets:
 
-![WebFacet](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/webFacet.png)
+![WebFacet](img/webFacet.png)
 
 Il suffit de rajouter un descripteur correspondant à Tomcat, de vérifier que le Web Resource Directory est le bon (le dossier web doit être celui à la racine du projet) et de cocher le dossier "src" en Source Roots.
 
 S'il n'y a pas de Source Roots, retournez dans le menu du projet, faites un clic droit sur le dossier "src" et sélectionnez l'option suivante:
 
-![MarkAsSource](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/markAsSource.png)
+![MarkAsSource](img/markAsSource.png)
 
 Une fois cela fait, on peut créer l'artefact.
 
 Dans File -> Project Structure -> Artefacts:
 
-![ArtefactExploded](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/artefactExploded.png)
+![ArtefactExploded](img/artefactExploded.png)
 
 Et on lui ajoute en sortie le web facet créé ainsi que le dossier WEB-INF:
 
-![OutputArtefact](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/outputArtefact.png)
+![OutputArtefact](img/outputArtefact.png)
 
-# Rajout de l'artefact à déployer dans Tomcat
+### Rajout de l'artefact à déployer dans Tomcat
 
 L'artefact est maintenant créé mais il faut indiquer au serveur Tomcat qu'il doit l'utiliser.
 On retourne donc dans sa configuration de lancement.
 
-![Deployment](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/deployment.png)
+![Deployment](img/deployment.png)
 
 Et on lui rajoute l'artefact dans la page "Deployment".
 
-# Lancement du serveur Tomcat
+### Lancement du serveur Tomcat
 
 Il ne reste plus qu'à lancer le serveur Tomcat avec la configuration créée!
 
-![RunTomcat](https://raw.github.com/TelecomLille/ILOG2017/whtbrd/doc/img/runTomcat.png)
+![RunTomcat](img/runTomcat.png)
 
 Une fois que le serveur Tomcat aura fini de se lancer, la page de connexion du projet s'ouvrira! (Celle-ci étant indiquée dans les fichiers XML du projet comme étant la page d'index)
 
 
-## Contenu du projet
+### Contenu du projet
 
-## Export du projet
+### Export du projet
 
 
 ## Comment faire sur d'autres IDE? Plus d'informations sur Tomcat? Comment améliorer l'application?
 
 Vous trouverez ici un cours sur le développement d'une application web avec Java EE au lien suivant:
 
-[I'm an inline-style link](https://openclassrooms.com/courses/creez-votre-application-web-avec-java-ee/outils-et-environnement-de-developpement)
+[Tutoriel Application Web Java EE](https://openclassrooms.com/courses/creez-votre-application-web-avec-java-ee/outils-et-environnement-de-developpement)
 
 Vous y trouverez plus d'informations sur Java EE, le fonctionnement de Tomcat, son installation sous Eclipse et des tutoriels pour créer de nouveaux fichiers pour l'application (servlets, jsp, ...)
 
 De plus, si vous avez quelques difficultés avec Git, vous pouvez consulter le tutoriel au lien suivant qui vous expliquera comment fonctionne l'outil de versioning:
 
-[I'm an inline-style link](https://openclassrooms.com/courses/gerer-son-code-avec-git-et-github/qu-est-ce-que-versionner-son-code)
+[Tutoriel Git](https://openclassrooms.com/courses/gerer-son-code-avec-git-et-github/qu-est-ce-que-versionner-son-code)
