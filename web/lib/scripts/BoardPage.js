@@ -2,6 +2,10 @@
  * Created by tbmc on 04/05/2017.
  */
 
+/**
+ * Canvas virtual size
+ *
+ */
 const VIRTUAL_SIZE = {
   width: 1000,
   height: 500,
