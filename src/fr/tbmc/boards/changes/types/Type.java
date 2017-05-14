@@ -15,7 +15,6 @@ public enum Type {
 
     CLEAR,
     UNDO,
-    RED0
     ;
 
     /**

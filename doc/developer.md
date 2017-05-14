@@ -133,8 +133,38 @@ Une fois que le serveur Tomcat aura fini de se lancer, la page de connexion du p
 
 ### Contenu du projet
 
+Le projet possède plusieurs dossiers nécessaires à son fonctionnement:
+
+- **src** : il contient le code Java nécessaire au fonctionnement de l'application
+  
+  Ici, ce sont des servlets nécessaires pour:
+  * Créer des tableaux blancs ainsi que leur liste (CreatedBoards, Board)
+  * Créer des utilisateurs (User)
+  * Créer des changements spécifiques et les lister (ensemble des Change, Type, ChangeList, ChangeFactory)
+  * Effectuer des requêtes (DoChange, GetChanges, JoinBoard, ListUsers, BoardList, CreateBoard)
+  * Répondre aux requêtes (JsonResponse, Response)
+
+- **web**: il contient les fichiers web nécessaires au fonctionnement de l'application (jsp: génération de pages web dynamiques grâce à Java, du CSS, du Javascript, etc.) ainsi que:
+    * META-INF : il contient des fichiers (MANIFEST.MF) qui sont interprétés par une plateforme Java pour configurer des applications, extensions, chargeurs de classes et des services (et aide notamment à la création des .jar)
+
+    * WEB-INF: il contient les descripteurs de déploiement (web.xml), les librairies et classes Java nécessaires pour configurer des applications web (et aide notamment à la création des .war)
+
 ### Export du projet
 
+Pour pouvoir exporter le projet pour une utilisation hors IDE, il faut cette fois-ci créer un artefact de type Web Application Archive.
+
+![ArtefactArchive](img/artefactArchive.png)
+
+Lors de la création de l'artefact, demandez à ce qu'il soit créé à partir de l'artefact exploded.
+Rajoutez aussi à l'artefact tous les éléments disponibles.
+
+![ArtefactBuild](img/artefactBuild.png)
+
+Il suffit juste ensuite de construire l'artefact nouvellement créé.
+
+![WAR](img/war.png)
+
+A l'endroit indiqué par l'output de l'artefact, vous trouverez votre projet exporté en .war!
 
 ## Comment faire sur d'autres IDE? Plus d'informations sur Tomcat? Comment améliorer l'application?
 
