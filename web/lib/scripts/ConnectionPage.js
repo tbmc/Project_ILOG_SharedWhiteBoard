@@ -178,6 +178,9 @@ $(function() {
 });
 
 function joinBoard(pseudo, boardName) {
+    /**
+     * Send a request to the server to ask if the user can join the board
+     */
   $.get("api/board-join", {
       BoardName: boardName,
       pseudo: pseudo,
@@ -191,6 +194,9 @@ function joinBoard(pseudo, boardName) {
     });
 }
 
+/**
+ * Redirect to the whiteboard page
+ */
 function redirectToJoin() {
   location.href = "BoardPage.jsp";
 }
