@@ -66,7 +66,7 @@ public class ChangeFactory
         int thickness = 0;
         boolean isFilled = false;
 
-        if(type != CLEAR && type != UNDO) {
+        if(type != CLEAR) {
             color = hexStringToColor((String) map.get("color"));
             thickness = (int) Math.round((double) map.get("thickness"));
             isFilled = (boolean) map.get("fill");
@@ -91,12 +91,6 @@ public class ChangeFactory
             case CLEAR:
                 return createClearChange(user);
 
-            case UNDO:
-                String previousId = (String) map.get("previousId");
-                return createUndoChange(user, previousId);
-
-
-
             default:
                 return null;
         }
@@ -107,13 +101,6 @@ public class ChangeFactory
         String id = UUID.randomUUID().toString();
         PencilChange pc = PencilChange.PencilChangeFromListHashMap(user, date, id, color, thickness, list);
         return pc;
-    }
-
-    public Change createUndoChange(User user, String previousId) {
-        Date date = new Date();
-        String id = UUID.randomUUID().toString();
-        UndoChange uc = new UndoChange(user, date, id, previousId);
-        return uc;
     }
 
     public Change createClearChange(User user) {

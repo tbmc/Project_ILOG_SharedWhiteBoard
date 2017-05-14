@@ -12,9 +12,7 @@ public enum Type {
 
     PENCIL,
 
-    CLEAR,
-    UNDO,
-    REDO
+    CLEAR
     ;
 
     public static Type getTypeFromString(String type) {
