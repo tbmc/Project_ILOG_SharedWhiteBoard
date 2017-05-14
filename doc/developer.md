@@ -148,7 +148,7 @@ Il suffit juste ensuite de construire l'artefact nouvellement créé.
 
 ![WAR](img/war.png)
 
-A l'endroit indiqué par l'output du fichier, vous trouverez votre projet exporté en .war!
+A l'endroit indiqué par l'output de l'artefact, vous trouverez votre projet exporté en .war!
 
 ## Comment faire sur d'autres IDE? Plus d'informations sur Tomcat? Comment améliorer l'application?
 
