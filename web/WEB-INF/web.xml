@@ -7,12 +7,6 @@
 
     <!-- Déclaration des servlets -->
     <servlet>
-        <servlet-name>MainServlet</servlet-name>
-        <servlet-class>fr.tbmc.servlets.MainServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
         <servlet-name>BoardList</servlet-name>
         <servlet-class>fr.tbmc.servlets.boards.BoardList</servlet-class>
     </servlet>
@@ -48,11 +42,6 @@
 
     <!-- Mapping -->
     <servlet-mapping>
-        <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/main</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>BoardList</servlet-name>
         <url-pattern>/api/board-list</url-pattern>
     </servlet-mapping>
@@ -77,15 +66,10 @@
         <servlet-name>DoChange</servlet-name>
         <url-pattern>/api/do-change</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>GetChange</servlet-name>
         <url-pattern>/api/get-changes</url-pattern>
     </servlet-mapping>
-
-
-    <listener>
-        <description>Session listener for timeout</description>
-        <listener-class>fr.tbmc.session.SessionListener</listener-class>
-    </listener>
 
 </web-app>

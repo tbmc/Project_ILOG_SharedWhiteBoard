@@ -18,25 +18,25 @@
     </title>
 
     <%-- Add custom stylesheet --%>
-    <link rel="stylesheet" href="/lib/styles/all.css">
+    <link rel="stylesheet" href="lib/styles/all.css">
 
 
     <%-- Add the stylesheets form Bootstrap --%>
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
 
     <%-- Add the stylesheet from Bootstrap-Select --%>
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.7/bootstrapSelect/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7/bootstrapSelect/css/bootstrap-select.min.css">
 
     <%--
     Add JQuery script
     It has to be included here because JQuery is heavily used
     in the rest of the page and JQuery has to be defined
     --%>
-    <script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
 
     <%-- Add ColorCanvas stylesheet --%>
-    <link rel="stylesheet" href="/lib/ColorCanvas/colorcanvas.css">
+    <link rel="stylesheet" href="lib/ColorCanvas/colorcanvas.css">
 
 </head>
 <%--

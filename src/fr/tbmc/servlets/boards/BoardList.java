@@ -14,9 +14,14 @@ import java.io.IOException;
  */
 public class BoardList extends HttpServlet
 {
-
+    /**
+     * List the Boards which exists
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         CreatedBoards board = CreatedBoards.getInstance();
         Response.json(resp, board.getBoardList());

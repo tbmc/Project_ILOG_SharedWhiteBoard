@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- Include header --%>
-<jsp:include page="/WEB-INF/header.jsp">
+<jsp:include page="WEB-INF/header.jsp">
     <jsp:param name="title" value="Tableau partagé" />
 </jsp:include>
 
@@ -11,7 +11,7 @@
             <div class="panel-heading">
                 <div style="float: right; margin-top: -5px;">
                     <button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="bottom"
-                            title="Retourner à la page de connexion" onclick="location.href = '/';">
+                            title="Retourner à la page de connexion" onclick="location.href = 'index.jsp';">
                         <i class="glyphicon glyphicon-menu-hamburger" style="color: white;"></i>
                     </button>
                 </div>
@@ -94,10 +94,10 @@
     </div>
 </div>
 
-<script src="/lib/ColorCanvas/colorcanvas.min.js"></script>
-<script src="/lib/ColorCanvas/colorcanvas.input.min.js"></script>
+<script src="lib/ColorCanvas/colorcanvas.min.js"></script>
+<script src="lib/ColorCanvas/colorcanvas.input.min.js"></script>
 <%-- Include the script of the page --%>
-<script src="/lib/scripts/BoardPage.js"></script>
+<script src="lib/scripts/BoardPage.js"></script>
 
 <%-- Include the footer --%>
 <%@ include file="WEB-INF/footer.jsp" %>

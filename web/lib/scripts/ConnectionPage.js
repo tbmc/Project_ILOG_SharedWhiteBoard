@@ -63,7 +63,7 @@ $(function() {
     /**
      * Send an http request to server to check if the names are taken
      */
-    $.get("/api/board-exists", {
+    $.get("api/board-exists", {
       // Parameters
       name: name,
       pseudo: pseudo,
@@ -141,7 +141,7 @@ $(function() {
   /**
    * Send a request to the server to get the list of sessions
    */
-  $.get("/api/board-list").done(function(data) {
+  $.get("api/board-list").done(function(data) {
     // Get the component showing session list
     var sn = $("#sessionName");
     // Empty the list
@@ -157,7 +157,7 @@ $(function() {
 $(function() {
   $("#createBoardButton").click(function() {
     var bn = $("#boardName").val();
-    $.post("/api/board-create", {
+    $.post("api/board-create", {
       name: bn
     }).done(function(data) {
       var pseudo = $("#pseudo").val();
@@ -178,7 +178,10 @@ $(function() {
 });
 
 function joinBoard(pseudo, boardName) {
-  $.get("/api/board-join", {
+    /**
+     * Send a request to the server to ask if the user can join the board
+     */
+  $.get("api/board-join", {
       BoardName: boardName,
       pseudo: pseudo,
     }).done(function(data) {
@@ -191,8 +194,11 @@ function joinBoard(pseudo, boardName) {
     });
 }
 
+/**
+ * Redirect to the whiteboard page
+ */
 function redirectToJoin() {
-  location.href = "/BoardPage.jsp";
+  location.href = "BoardPage.jsp";
 }
 
 
