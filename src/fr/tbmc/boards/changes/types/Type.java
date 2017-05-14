@@ -14,7 +14,7 @@ public enum Type {
 
     CLEAR,
     UNDO,
-    RED0
+    REDO
     ;
 
     public static Type getTypeFromString(String type) {

@@ -278,7 +278,7 @@ function newFigureDrew(type, points, thickness, fill, color) {
 //Submit infos needed to redraw the canvas element
 function submit(elmt) {
   $.post(
-    "/api/do-change",
+    "api/do-change",
     { data: JSON.stringify(elmt) }
   ).fail(function(data) {
     console.log(data);
@@ -291,7 +291,7 @@ function submit(elmt) {
 //Update canvas elements list
 function update() {
   $.get(
-    "/api/get-changes",
+    "api/get-changes",
     {
       lastId: lastId
     }
@@ -364,12 +364,12 @@ $(function() {
     keyboard: false,
   });
   $("#btnModalRedirectToConnectionPage").click(function() {
-    location.href = "/";
+    location.href = "index.jsp";
   });
 });
 
 function refreshUserList() {
-  $.get("/api/user-list").done(function(data) {
+  $.get("api/user-list").done(function(data) {
     $("#boardName").html(data.boardName);
     let list = $("#userList");
     list.html("");

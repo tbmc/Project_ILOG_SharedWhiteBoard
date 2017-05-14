@@ -135,6 +135,20 @@ Une fois que le serveur Tomcat aura fini de se lancer, la page de connexion du p
 
 ### Export du projet
 
+Pour pouvoir exporter le projet pour une utilisation hors IDE, il faut cette fois-ci créer un artefact de type Web Application Archive.
+
+![ArtefactArchive](img/artefactArchive.png)
+
+Lors de la création de l'artefact, demandez à ce qu'il soit créé à partir de l'artefact exploded.
+Rajoutez aussi à l'artefact tous les éléments disponibles.
+
+![ArtefactBuild](img/artefactBuild.png)
+
+Il suffit juste ensuite de construire l'artefact nouvellement créé.
+
+![WAR](img/war.png)
+
+A l'endroit indiqué par l'output du fichier, vous trouverez votre projet exporté en .war!
 
 ## Comment faire sur d'autres IDE? Plus d'informations sur Tomcat? Comment améliorer l'application?
 
