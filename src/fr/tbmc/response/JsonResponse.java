@@ -18,11 +18,17 @@ public class JsonResponse
      */
     protected Gson gson;
 
-
+    /**
+     * Instantiate a JsonResponse and create a Gson object from GsonBuilder in parameter
+     * @param builder
+     */
     public JsonResponse(GsonBuilder builder) {
         gson = builder.create();
     }
 
+    /**
+     * Default value a default GsonBuilder
+     */
     public JsonResponse() {
         this(new GsonBuilder());
     }
@@ -30,8 +36,8 @@ public class JsonResponse
     /**
      * Encode object in JSON and write it in the output stream
      * @param resp Response object pass in parameter at the method doGet or doPost or any other method doXxx
-     * @param object Object to convert in JSON
-     * @throws IOException
+     * @param object Object to convert in JSON {@link Gson#toJson(Object)}
+     * @throws IOException when there is a problem when writing the response to the client
      */
     public void respond(HttpServletResponse resp, Object object) throws IOException
     {

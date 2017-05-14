@@ -20,11 +20,10 @@ public class CreateBoard extends HttpServlet
      * Create a new boards if the name is not already taken
      * @param req
      * @param resp
-     * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         // Get the name pass in parameter
         String name = req.getParameter("name");
@@ -49,11 +48,10 @@ public class CreateBoard extends HttpServlet
      * This method does not create a boards, it just tell if it exists and if the pseudo is already taken
      * @param req
      * @param resp
-     * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         // Get the parameters
         String name = req.getParameter("name");

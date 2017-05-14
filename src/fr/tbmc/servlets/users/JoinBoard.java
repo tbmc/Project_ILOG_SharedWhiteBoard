@@ -17,7 +17,7 @@ import java.io.IOException;
 public class JoinBoard extends HttpServlet
 {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         String boardName = req.getParameter("BoardName");
         String pseudo = req.getParameter("pseudo");

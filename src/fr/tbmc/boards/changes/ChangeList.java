@@ -8,27 +8,50 @@ import java.util.LinkedList;
 
 /**
  * Created by tbmc on 04/05/2017.
+ *
+ * List of Changes
+ *
  */
 public class ChangeList implements Collection<Change>
 {
-
+    /**
+     * Default maximum number of elements in the list
+     */
     public static int MAX_SIZE = 500;
+
+    /**
+     * Maximum number of elements in the list
+     */
     public int maxSize = MAX_SIZE;
 
+    /**
+     * List of elements
+     * Choose a LinkedList because we need to add in first place
+     */
     protected LinkedList<Change> list = new LinkedList<>();
 
+    /**
+     * Add a Change to the list
+     * @param change Change to add
+     * @return Boolean to know if the add is successful or not
+     */
     @Override
     public boolean add(Change change) {
         if(change == null)
             return false;
+        // To be sure that list is accessed by only one thread at the time
         synchronized (list) {
             list.addFirst(change);
+            // To be sure the number of elements in the list is not exceeded
             gc();
         }
         return true;
     }
 
-
+    /**
+     * Check if the maximum number of elements is exceeded or not.
+     * If the number is exceeded, it will remove the older elements.
+     */
     public void gc() {
         synchronized (list) {
             while(list.size() > maxSize) {
@@ -37,6 +60,11 @@ public class ChangeList implements Collection<Change>
         }
     }
 
+    /**
+     * Return the identifier of the last element added in the list.
+     * This element is in first position in the list.
+     * @return identifier of the last element added in the list
+     */
     public String getLastIdentifier() {
         String id;
         synchronized (list) {
@@ -45,6 +73,12 @@ public class ChangeList implements Collection<Change>
         return id;
     }
 
+    /**
+     * Return another ChangeList containing all the Changes made
+     * since the identifier in parameter
+     * @param id identifier from which return the list of Changes
+     * @return ChangeList containing all the Changes
+     */
     public ChangeList getListOfChangeSince(String id) {
         ChangeList cl = new ChangeList();
         for(Change c : list) {
@@ -56,14 +90,33 @@ public class ChangeList implements Collection<Change>
         return cl;
     }
 
+    /**
+     * Set the maximum size of elements in the list
+     * @param maxSize Maximum number elements in the list
+     */
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
         gc();
     }
 
+    /**
+     * Return the maximum size of elements in the list
+     * @return Maximum number of elements in the list
+     */
     public int getMaxSize() {
         return maxSize;
     }
+
+
+    /**
+     *
+     * Following function are methods that is necessary to
+     * implements Collection interface
+     * {@link Collection}
+     *
+     */
+
+
 
 
     @Override
