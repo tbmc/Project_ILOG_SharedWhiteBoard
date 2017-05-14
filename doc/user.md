@@ -3,7 +3,7 @@
 ## Lancement de l'application
 
 Vous trouverez l'application au lien suivant:
-[WhiteBoard]()
+[WhiteBoard](export/whtbrd.war)
 
 Elle est contenue dans un fichier .war.
 
