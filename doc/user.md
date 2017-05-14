@@ -57,21 +57,62 @@ Aussi, il n'est pas possible de créer un tableau blanc si vous n'avez pas chois
 Ce bloc vous permet de choisir de rejoindre un tableau blanc déjà existant.
 
 Si aucun tableau blanc n'a été créé, la sélection sera vide et vous ne pourrez pas rejoindre de tableau.
-Dans ce cas de figure, il faut créer un nouveau tableau blanc.
+Dans ce cas de figure, il vous faut créer un nouveau tableau blanc.
 
 Une fois que vous aurez cliqué sur le bouton "Créer" ou "Rejoindre", vous serez redirigé vers le tableau blanc correspondant.
 
 ### Le tableau blanc
 
+## Contenu
+
+![WhiteBoard](img/whiteBoard.png)
+
+Vous pouvez remarquer que le tableau blanc possède 2 blocs distincts lui aussi:
+
+![BoardInfo](img/boardInfo.png)
+
+Ce bloc affiche les informations relatives au tableau blanc: le nom du tableau blanc ainsi que les utilisateurs connectés.
+L'icône à droite du nom du tableau permet de revenir à tout moment à la page de connexion.
+
+![BoardInfo](img/boardInfo2.png)
+
+S'il y a plusieurs utilisateurs sur un même tableau, votre nom d'utilisateur sera celui sélectionné en bleu.
+
+![Canvas](img/canvas.png)
+
+Ce bloc représente la zone de dessin (Cadre blanc) ainsi que les options disponibles de dessin.
+
+![Types](img/types.png)
+
+La première ligne d'options concerne les types disponibles pour dessiner.
+
+On a successivement la ligne, le cercle, le rectangle et le dessin à main levé.
+Il suffit de sélectionner le type voulu et de le dessiner sur le canvas.
+Le type sélectionné restera le même tant que vous n'aurez pas sélectionné un autre type.
+
+Tant que vous ne relâchez pas votre souris (à l'exception pour le dessin à main levé), vous pouvez avoir un aperçu du résultat et adapter celui-ci en conséquence.
+
+![Fill](img/fill.png)
+
+La deuxième ligne d'options possède les commandes "Fill" et "Clear".
+
+Quand "Fill" est sélectionné, les formes (Cercle & Rectangle) sont maintenant remplies.
+Le déselectionner permet d'avoir à nouveau des formes creuses.
+
+Quand on clique sur "Clear", la zone de dessin s'efface en intégralité.
+
+![ColorPicker](img/colorPicker.png)
+
+La dernière ligne vous permet de sélectionner une couleur pour vos prochains dessins sur la zone.
+
+Celle-ci restera la même tant que vous n'aurez pas sélectionné une autre couleur.
+
+## Synchronisation à plusieurs utilisateurs
+
+![MultiUser](img/multiUser.png)
+
+La synchronisation du tableau blanc entre les différents utilisateurs se fait toutes les 500 ms.
+
+Dans un cas où il y aurait beaucoup plus de tableaux blancs et d'utilisateurs connectés, ce temps de synchronisation pourrait être rallongé.
 
 
-
-
-
-
-
-
-![CreateBoard](img/newBoard.png)
-
-
-Si le nom de tableau est déjà pris, vous ne pourrez pas créer votre tableau.
